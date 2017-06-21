@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">DemoThermostat</string>
+    <string name="app_name">Pocket Thermostat</string>
+    <string name="Day">Day</string>
+    <string name="Night">Night</string>
 </resources>

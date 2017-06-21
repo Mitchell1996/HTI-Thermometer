@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DemoThermostat.iml" filepath="$PROJECT_DIR$/DemoThermostat.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HTI-Thermometer.iml" filepath="$PROJECT_DIR$/HTI-Thermometer.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
