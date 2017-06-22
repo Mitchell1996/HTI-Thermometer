@@ -3,6 +3,7 @@ package nl.tue.demothermostat;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -25,11 +26,8 @@ public class ThermostatActivity extends Activity {
         setContentView(R.layout.activity_thermostat);
 
 
-        ImageView bPlus = (ImageView)findViewById(R.id.bPlus);
-        bPlus.setImageResource(R.drawable.add_button);
-
-
-        ImageView bMinus = (ImageView)findViewById(R.id.bMinus);
+        Button bPlus = (Button) findViewById(R.id.bPlus);
+        Button bMinus = (Button)findViewById(R.id.bMinus);
 
         //Sets TextView variables to their corresponding UI element by its id
         currentTemp = (TextView)findViewById(R.id.currentTemp);     //TBD TextView for current temp
@@ -108,5 +106,12 @@ public class ThermostatActivity extends Activity {
                 seekBar.setProgress(temp_target.intValue());
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 }
