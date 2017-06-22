@@ -2,11 +2,15 @@ package nl.tue.demothermostat;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -17,24 +21,19 @@ public class ThermostatActivity extends Activity {
     public static double temp_current;             //this should be retrieved from the server to show the current temp
     public static double temp_target = 21.0;       //is accessible from other classes
     TextView currentTemp, targetTemp;
-    SeekBar seekBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thermostat);
-
+        final LinearLayout ll = (LinearLayout)findViewById(R.id.Parent);
+        ll.setBackgroundColor(Color.BLUE);      //starts with BLUE by default
 
         ImageView bPlus = (ImageView)findViewById(R.id.bPlus);
         bPlus.setImageResource(R.drawable.add_button);
-
-
         ImageView bMinus = (ImageView)findViewById(R.id.bMinus);
-
-        //Sets TextView variables to their corresponding UI element by its id
-        currentTemp = (TextView)findViewById(R.id.currentTemp);     //TBD TextView for current temp
-        targetTemp = (TextView)findViewById(R.id.targetTemp);       //TBD TextView for target temp
-
+        currentTemp = (TextView)findViewById(R.id.currentTemp);
+        targetTemp = (TextView)findViewById(R.id.targetTemp);
         Button weekOverview = (Button)findViewById(R.id.week_overview);
 
         weekOverview.setOnClickListener(new View.OnClickListener() {
@@ -60,26 +59,11 @@ public class ThermostatActivity extends Activity {
         dNSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-            }
-        });
-
-        seekBar = (SeekBar)findViewById(R.id.seekBar);
-        seekBar.setProgress(vtemp);
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                temp.setText(i + " \u2103");
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
+                if (isChecked) {
+                    ll.setBackgroundColor(Color.BLACK);     //toggle is enabled
+                } else {
+                    ll.setBackgroundColor(Color.BLUE);      //toggle is disabled
+                }
             }
         });
         bPlus.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +76,6 @@ public class ThermostatActivity extends Activity {
                     toast.show();
                 }
                 targetTemp.setText(temp_target + " \u2103");
-                seekBar.setProgress(temp_target.intValue());        //TBD convert double to integer
             }
         });
         bMinus.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +88,6 @@ public class ThermostatActivity extends Activity {
                     toast.show();
                 }
                 targetTemp.setText(temp_target + " \u2103");
-                seekBar.setProgress(temp_target.intValue());
             }
         });
     }
