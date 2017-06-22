@@ -27,7 +27,7 @@ public class TestingWS extends Activity {
         /* Use BASE_ADDRESS dedicated for your group,
 		 * change 100 to you group number
 		 */
-        HeatingSystem.BASE_ADDRESS = "http://wwwis.win.tue.nl/2id40-ws/100";
+        HeatingSystem.BASE_ADDRESS = "http://wwwis.win.tue.nl/2id40-ws/48";
         HeatingSystem.WEEK_PROGRAM_ADDRESS = HeatingSystem.BASE_ADDRESS + "/weekProgram";
 
         getdata = (Button)findViewById(R.id.getdata);
@@ -84,7 +84,7 @@ public class TestingWS extends Activity {
                     public void run() {
                         try {
                             oldv = HeatingSystem.get("targetTemperature");
-                            HeatingSystem.put("targetTemperature", "16.0");
+                            HeatingSystem.put("targetTemperature", String.valueOf(ThermostatActivity.temp_target));     //store local temp_target to server
                             newv = HeatingSystem.get("targetTemperature");
 
                             /* Uncomment the following parts to see how to work with the properties of the week program */

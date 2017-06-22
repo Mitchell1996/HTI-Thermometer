@@ -10,11 +10,13 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ThermostatActivity extends Activity {
 
-    int vtemp = 21;
-    TextView temp;
+    public static double temp_current;             //this should be retrieved from the server to show the current temp
+    public static double temp_target = 21.0;       //is accessible from other classes
+    TextView currentTemp, targetTemp;
     SeekBar seekBar;
 
     @Override
@@ -28,7 +30,11 @@ public class ThermostatActivity extends Activity {
 
 
         ImageView bMinus = (ImageView)findViewById(R.id.bMinus);
-        temp = (TextView)findViewById(R.id.temp);
+
+        //Sets TextView variables to their corresponding UI element by its id
+        currentTemp = (TextView)findViewById(R.id.currentTemp);     //TBD TextView for current temp
+        targetTemp = (TextView)findViewById(R.id.targetTemp);       //TBD TextView for target temp
+
         Button weekOverview = (Button)findViewById(R.id.week_overview);
 
         weekOverview.setOnClickListener(new View.OnClickListener() {
@@ -79,17 +85,27 @@ public class ThermostatActivity extends Activity {
         bPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                vtemp++;
-                temp.setText(vtemp + " \u2103");
-                seekBar.setProgress(vtemp);
+                if (temp_target < 30) {
+                    temp_target++;
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "You can't set the Target Temperature above 30", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                targetTemp.setText(temp_target + " \u2103");
+                seekBar.setProgress(temp_target.intValue());        //TBD convert double to integer
             }
         });
         bMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                vtemp--;
-                temp.setText(vtemp + " \u2103");
-                seekBar.setProgress(vtemp);
+                if (temp_target > 5) {
+                    temp_target--;
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "You can't set the Target Temperature below 5", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                targetTemp.setText(temp_target + " \u2103");
+                seekBar.setProgress(temp_target.intValue());
             }
         });
     }
