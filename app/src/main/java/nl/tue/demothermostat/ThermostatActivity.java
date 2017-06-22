@@ -106,12 +106,15 @@ public class ThermostatActivity extends Activity {
                     toast.show();
                 }
                 targetTemp.setText(temp + " \u2103");
+
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            HeatingSystem.put("dayTemperature", String.valueOf(temp_day));      //invalid value?
-                        } catch (ConnectException e) {
+                            HeatingSystem.put("dayTemperature", String.valueOf(temp_day));
+                            HeatingSystem.put("nightTemperature", String.valueOf(temp_night));
+                            HeatingSystem.put("targetTemperature", String.valueOf(temp_target));
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
@@ -139,8 +142,23 @@ public class ThermostatActivity extends Activity {
                     toast.show();
                 }
                 targetTemp.setText(temp + " \u2103");
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            HeatingSystem.put("dayTemperature", String.valueOf(temp_day));
+                            HeatingSystem.put("nightTemperature", String.valueOf(temp_night));
+                            HeatingSystem.put("targetTemperature", String.valueOf(temp_target));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
             }
         });
+
+
     }
 
     @Override
