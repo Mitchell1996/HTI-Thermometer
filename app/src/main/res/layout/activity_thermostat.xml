@@ -64,6 +64,14 @@
         android:textSize="30dp"
         android:textColor="#ffffff"/>
 
+    <ToggleButton
+        android:id="@+id/targetToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:onClick="onToggleClicked"
+        android:text="ToggleButton" />
+
     <Switch
         android:id="@+id/switch1"
         android:layout_width="wrap_content"

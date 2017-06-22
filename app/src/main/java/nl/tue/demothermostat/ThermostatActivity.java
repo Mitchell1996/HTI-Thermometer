@@ -2,8 +2,6 @@ package nl.tue.demothermostat;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -11,14 +9,18 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
+
+import org.thermostatapp.util.HeatingSystem;
+
+import java.net.ConnectException;
 
 public class ThermostatActivity extends Activity {
 
-    public static double temp_current;             //this should be retrieved from the server to show the current temp
+    public static double temp, temp_current, temp_day, temp_night;             //this should be retrieved from the server to show the current temp
     public static double temp_target = 21.0;       //is accessible from other classes
     TextView currentTemp, targetTemp;
 
@@ -27,6 +29,19 @@ public class ThermostatActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thermostat);
         final LinearLayout ll = (LinearLayout)findViewById(R.id.Parent);
+
+        //Gets day/night temperatures from server and stores them in the variables
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    temp_day = Double.parseDouble(HeatingSystem.get("dayTemperature"));
+                    temp_night = Double.parseDouble(HeatingSystem.get("nightTemperature"));
+                } catch (ConnectException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
         currentTemp = (TextView)findViewById(R.id.currentTemp);
         targetTemp = (TextView)findViewById(R.id.targetTemp);
@@ -38,6 +53,7 @@ public class ThermostatActivity extends Activity {
         targetTemp = (TextView)findViewById(R.id.targetTemp);       //TBD TextView for target temp
 
         Button weekOverview = (Button)findViewById(R.id.week_overview);
+        final ToggleButton targetToggle = (ToggleButton) findViewById(R.id.targetToggle);
 
         weekOverview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +73,7 @@ public class ThermostatActivity extends Activity {
             }
         });
 
-        Switch dNSwitch = (Switch)findViewById(R.id.switch1);
+        final Switch dNSwitch = (Switch)findViewById(R.id.switch1);
 
         dNSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             @Override
@@ -73,24 +89,56 @@ public class ThermostatActivity extends Activity {
             @Override
             public void onClick(View view) {
                 if (temp_target < 30) {
-                    temp_target++;
+                    if (targetToggle.isChecked()) {
+                        if (dNSwitch.isChecked()) {
+                            temp_night++;
+                            temp = temp_night;
+                        } else {
+                            temp_day++;
+                            temp = temp_day;
+                        }
+                    } else {
+                        temp_target++;
+                        temp = temp_target;
+                    }
                 } else {
                     Toast toast = Toast.makeText(getApplicationContext(), "You can't set the Target Temperature above 30", Toast.LENGTH_SHORT);
                     toast.show();
                 }
-                targetTemp.setText(temp_target + " \u2103");
+                targetTemp.setText(temp + " \u2103");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            HeatingSystem.put("dayTemperature", String.valueOf(temp_day));      //invalid value?
+                        } catch (ConnectException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
             }
         });
         bMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (temp_target > 5) {
-                    temp_target--;
+                    if (targetToggle.isChecked()) {
+                        if (dNSwitch.isChecked()) {
+                            temp_night--;
+                            temp = temp_night;
+                        } else {
+                            temp_day--;
+                            temp = temp_day;
+                        }
+                    } else {
+                        temp_target--;
+                        temp = temp_target;
+                    }
                 } else {
                     Toast toast = Toast.makeText(getApplicationContext(), "You can't set the Target Temperature below 5", Toast.LENGTH_SHORT);
                     toast.show();
                 }
-                targetTemp.setText(temp_target + " \u2103");
+                targetTemp.setText(temp + " \u2103");
             }
         });
     }
