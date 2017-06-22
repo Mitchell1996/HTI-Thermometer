@@ -3,6 +3,7 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/day"
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:id="@+id/Parent"
@@ -30,13 +31,13 @@
         android:paddingBottom="20dp"/>
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Target Temperature"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Set Temperature"
-        android:textSize="30dp"
         android:textColor="#ffffff"
-        android:id="@+id/textView3" />
+        android:textSize="30dp" />
 
     <Button
         android:id="@+id/bPlus"
@@ -47,19 +48,11 @@
         android:textColor="#ffffff"/>
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Target Temperature"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#ffffff"
-        android:textSize="30dp" />
-
-    <TextView
         android:id="@+id/targetTemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="21 &#x2103;"
         android:textColor="#ffffff"
         android:textSize="30dp" />
 

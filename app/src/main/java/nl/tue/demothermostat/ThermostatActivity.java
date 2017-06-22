@@ -27,7 +27,6 @@ public class ThermostatActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thermostat);
         final LinearLayout ll = (LinearLayout)findViewById(R.id.Parent);
-        ll.setBackgroundColor(Color.BLUE);      //starts with BLUE by default
 
         currentTemp = (TextView)findViewById(R.id.currentTemp);
         targetTemp = (TextView)findViewById(R.id.targetTemp);
@@ -64,9 +63,9 @@ public class ThermostatActivity extends Activity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    ll.setBackgroundColor(Color.BLACK);     //toggle is enabled
+                    ll.setBackgroundColor(getColor(R.color.night));     //toggle is enabled
                 } else {
-                    ll.setBackgroundColor(Color.BLUE);      //toggle is disabled
+                    ll.setBackgroundColor(getColor(R.color.day));      //toggle is disabled
                 }
             }
         });
