@@ -20,7 +20,7 @@
 
         <activity
             android:name=".WeekOverview"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" >
         </activity>
 

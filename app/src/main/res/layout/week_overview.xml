@@ -1,43 +1,265 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:background="#000000"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        style="@style/button"
-        android:layout_height="wrap_content"
-        android:text="Day 1"
-        android:layout_gravity="center_horizontal" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:background="@color/day"
+        android:layout_height="match_parent">
 
-    <Button
-        style="@style/button"
-        android:layout_height="wrap_content"
-        android:text="Day 2"
-        android:layout_gravity="center_horizontal" />
-    <Button
-        style="@style/button"
-        android:layout_height="wrap_content"
-        android:text="Day 3"
-        android:layout_gravity="center_horizontal" />
-    <Button
-        style="@style/button"
-        android:layout_height="wrap_content"
-        android:text="Day 4"
-        android:layout_gravity="center_horizontal" />
-    <Button
-        style="@style/button"
-        android:layout_height="wrap_content"
-        android:text="Day 5"
-        android:layout_gravity="center_horizontal" />
-    <Button
-        style="@style/button"
-        android:layout_height="wrap_content"
-        android:text="Day 6"
-        android:layout_gravity="center_horizontal" />
-    <Button
-        style="@style/button"
-        android:layout_height="wrap_content"
-        android:text="Day 7"
-        android:layout_gravity="center_horizontal" />
-</LinearLayout>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp">
+            <TextView
+                style="@style/daytile"
+                android:text="Mon" />
+
+            <TextView
+                style="@style/daytile"
+                android:text="Tue" />
+
+            <TextView
+                style="@style/daytile"
+                android:text="Wed" />
+
+            <TextView
+                style="@style/daytile"
+                android:text="Thu" />
+
+            <TextView
+                style="@style/daytile"
+                android:text="Fri" />
+
+            <TextView
+                style="@style/daytile"
+                android:text="Sat" />
+
+            <TextView
+                style="@style/daytile"
+                android:text="Sun" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="00:00 am" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="01:00 am" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="02:00 am" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="03:00 am" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="04:00 am" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="05:00 am" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="06:00 am" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="07:00 am" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="08:00 am" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="09:00 am" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="10:00 am" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="11:00 am" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="12:00 pm" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="13:00 pm" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="14:00 pm" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="15:00 pm" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="16:00 pm" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="17:00 pm" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="18:00 pm" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="19:00 pm" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="20:00 pm" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="21:00 pm" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="22:00 pm" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/timetile"
+                android:text="23:00 pm" />
+
+        </TableRow>
+
+
+    </LinearLayout>
+    
+</ScrollView>
