@@ -10,13 +10,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import org.thermostatapp.util.*;
+import org.w3c.dom.Text;
 
 public class TestingWS extends Activity {
 
     Button getdata, putdata;
-    TextView data1, data2;
-    String getParam, oldv, newv;
+    TextView data1, data2, data3, data4, data5, data6, data7;
+    String oldv, newv, date, time, dayt, nightt, cnt, tgt, wpg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +35,13 @@ public class TestingWS extends Activity {
 
         getdata = (Button)findViewById(R.id.getdata);
         putdata = (Button)findViewById(R.id.putdata);
-        data1 = (TextView)findViewById(R.id.data1);
-        data2 = (TextView)findViewById(R.id.data2);
+        data1 = (TextView)findViewById(R.id.textView11);
+        data2 = (TextView)findViewById(R.id.textView12);
+        data3 = (TextView)findViewById(R.id.textView13);
+        data4 = (TextView)findViewById(R.id.textView14);
+        data5 = (TextView)findViewById(R.id.textView15);
+        data6 = (TextView)findViewById(R.id.textView16);
+        data7 = (TextView)findViewById(R.id.textView17);
 
         /* When the user clicks on GET Data button the value of the corresponding parameter is read from the server
         and displayed in TextView data1
@@ -46,21 +54,32 @@ public class TestingWS extends Activity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        getParam = "";
+                        date = "";
+                        time = "";
+                        dayt = "";
+                        nightt = "";
+                        cnt = "";
+                        tgt = "";
+                        wpg = "";
                         try {
-                            getParam = HeatingSystem.get("currentTemperature");
-                            /*
-									HeatingSystem.get("day");
-									HeatingSystem.get("time");
-									HeatingSystem.get("targetTemperature");
-									HeatingSystem.get("dayTemperature");
-									HeatingSystem.get("nightTemperature");
-									HeatingSystem.get("weekProgramState");
-							*/
+                            cnt = HeatingSystem.get("currentTemperature");
+                            date = HeatingSystem.get("day");
+                            time = HeatingSystem.get("time");
+                            tgt = HeatingSystem.get("targetTemperature");
+                            dayt = HeatingSystem.get("dayTemperature");
+                            nightt = HeatingSystem.get("nightTemperature");
+                            wpg = HeatingSystem.get("weekProgramState");
+
                             data1.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    data1.setText(getParam);
+                                    data1.setText(date);
+                                    data2.setText(time);
+                                    data3.setText(dayt);
+                                    data4.setText(nightt);
+                                    data5.setText(cnt);
+                                    data6.setText(tgt);
+                                    data7.setText(wpg);
                                 }
                             });
                         } catch (Exception e) {
@@ -79,6 +98,7 @@ public class TestingWS extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
+                final Toast toast = Toast.makeText(getApplicationContext(), "Target Temperature uploaded!", Toast.LENGTH_SHORT);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -107,15 +127,16 @@ public class TestingWS extends Activity {
                             data1.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    data1.setText(oldv);
+                                    //data1.setText(oldv);
                                 }
                             });
                             data2.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    data2.setText(newv);
+                                    //data2.setText(newv);
                                 }
                             });
+                            toast.show();
                         } catch (Exception e) {
                             System.err.println("Error from getdata " + e);
                         }
