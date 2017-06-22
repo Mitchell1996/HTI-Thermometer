@@ -18,20 +18,33 @@
         android:textColor="#ffffff"
         android:textSize="30dp" />
 
+
     <TextView
-        android:id="@+id/currentTemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="21 &#x2103;"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="21 &#x2103;"
+        android:textSize="30dp"
         android:textColor="#ffffff"
-        android:textSize="30dp" />
+        android:id="@+id/currentTemp"
+        android:paddingBottom="20dp"/>
 
-    <ImageView
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Set Temperature"
+        android:textSize="30dp"
+        android:textColor="#ffffff"
+        android:id="@+id/textView3" />
+
+    <Button
         android:id="@+id/bPlus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/add_button" />
+        android:text="+"
+        android:textSize="30dp"
+        android:textColor="#ffffff"/>
 
     <TextView
         android:id="@+id/textView2"
@@ -50,11 +63,23 @@
         android:textColor="#ffffff"
         android:textSize="30dp" />
 
-    <ImageView
+    <Button
+        android:id="@+id/bMinus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/minus_button"
-        android:id="@+id/bMinus" />
+        android:text="-"
+        android:textSize="30dp"
+        android:textColor="#ffffff"/>
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.08"
+        android:text="Day/Night"
+        android:textColor="#ffffff"
+        android:textOff="@string/Day"
+        android:textOn="@string/Night" />
 
     <Button
         android:id="@+id/week_overview"
@@ -71,15 +96,5 @@
         android:layout_gravity="center_horizontal"
         android:text="Testing Web Service"
         android:textColor="#ffffff"/>
-
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Day/Night"
-        android:textColor="#ffffff"
-        android:textOff="@string/Day"
-        android:textOn="@string/Night"
-        android:layout_weight="0.08" />
 
 </LinearLayout>

@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -29,11 +29,15 @@ public class ThermostatActivity extends Activity {
         final LinearLayout ll = (LinearLayout)findViewById(R.id.Parent);
         ll.setBackgroundColor(Color.BLUE);      //starts with BLUE by default
 
-        ImageView bPlus = (ImageView)findViewById(R.id.bPlus);
-        bPlus.setImageResource(R.drawable.add_button);
-        ImageView bMinus = (ImageView)findViewById(R.id.bMinus);
         currentTemp = (TextView)findViewById(R.id.currentTemp);
         targetTemp = (TextView)findViewById(R.id.targetTemp);
+        Button bPlus = (Button) findViewById(R.id.bPlus);
+        Button bMinus = (Button)findViewById(R.id.bMinus);
+
+        //Sets TextView variables to their corresponding UI element by its id
+        currentTemp = (TextView)findViewById(R.id.currentTemp);     //TBD TextView for current temp
+        targetTemp = (TextView)findViewById(R.id.targetTemp);       //TBD TextView for target temp
+
         Button weekOverview = (Button)findViewById(R.id.week_overview);
 
         weekOverview.setOnClickListener(new View.OnClickListener() {
@@ -90,5 +94,12 @@ public class ThermostatActivity extends Activity {
                 targetTemp.setText(temp_target + " \u2103");
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 }
