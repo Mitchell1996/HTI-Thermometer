@@ -31,6 +31,7 @@ public class ThermostatActivity extends Activity {
         final LinearLayout ll = (LinearLayout)findViewById(R.id.Parent);
 
         //Gets day/night temperatures from server and stores them in the variables
+        /*
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -45,7 +46,7 @@ public class ThermostatActivity extends Activity {
                     e.printStackTrace();
                 }
             }
-        }).start();
+        }).start(); */
 
         currentTemp = (TextView)findViewById(R.id.currentTemp);
         targetTemp = (TextView)findViewById(R.id.targetTemp);
@@ -60,7 +61,7 @@ public class ThermostatActivity extends Activity {
             public void run() {
                 currentTemp.setText(String.valueOf(temp_current));
             }
-        }); */
+        });
 
         new Thread(new Runnable() {
             @Override
@@ -79,7 +80,7 @@ public class ThermostatActivity extends Activity {
                     }
                 }
             }
-        }).start();
+        }).start(); */
 
         weekOverview.setOnClickListener(new View.OnClickListener() {
             @Override
