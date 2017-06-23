@@ -1,52 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:design="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/day">
+    android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <Button style="@style/DayButton"
+        android:id="@+id/Monday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Monday"/>
+
+    <Button style="@style/DayButton"
+        android:id="@+id/Tuesday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tuesday"/>
+
+    <Button style="@style/DayButton"
+        android:id="@+id/Wednesday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Wednesday"/>
+
+    <Button style="@style/DayButton"
+        android:id="@+id/Thursday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thursday"/>
+
+    <Button style="@style/DayButton"
+        android:id="@+id/Friday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Friday"/>
+
+    <Button style="@style/DayButton"
+        android:id="@+id/Saturday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Saturday"/>
+
+    <Button style="@style/DayButton"
+        android:id="@+id/Sunday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sunday"/>
+
+    <android.support.design.widget.BottomNavigationView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/navigationBar"
+        android:layout_gravity="bottom"
+        design:menu="@menu/menu_main"/>
 
 
-        <Button style="@style/DayButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Monday"/>
-
-        <Button style="@style/DayButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Tuesday"/>
-
-        <Button style="@style/DayButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Wednesday"/>
-
-        <Button style="@style/DayButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Thursday"/>
-
-        <Button style="@style/DayButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Friday"/>
-
-        <Button style="@style/DayButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Saturday"/>
-
-        <Button style="@style/DayButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Sunday"/>
+</LinearLayout>
 
 
-    </LinearLayout>
-
-
-</ScrollView>

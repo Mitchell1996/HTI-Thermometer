@@ -2,7 +2,13 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Item" />
-    <item android:title="Item" />
-    <item android:title="Item" />
+    <item android:title="Thermostat"
+        android:id="@+id/Thermostat"
+        android:icon="@drawable/ic_thermostat"/>
+    <item android:title="Week Overview"
+        android:id="@+id/WeekOverview"
+        android:icon="@drawable/ic_week_overview"/>
+    <item android:title="Test"
+        android:id="@+id/Test"
+        android:icon="@drawable/ic_action_name"/>
 </menu>
