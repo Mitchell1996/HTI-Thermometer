@@ -62,7 +62,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="140dp">
 
 
         <Switch
@@ -120,17 +120,24 @@
             android:textColor="#ffffff"
             android:textSize="30dp" />
 
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/navigationBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            design:menu="@menu/menu_main"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true" />
+
+
+
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="33dp">
 
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        design:menu="@menu/menu_main"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true" />
 
+</RelativeLayout>
 
 </LinearLayout>
