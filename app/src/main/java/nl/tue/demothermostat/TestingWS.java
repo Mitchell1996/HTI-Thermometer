@@ -30,30 +30,7 @@ public class TestingWS extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        BottomNavigationView bottomNavigationView = (BottomNavigationView)
-                findViewById(R.id.navigationBar);
 
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.Thermostat:
-                                Intent intent1 = new Intent(getBaseContext(), ThermostatActivity.class);
-                                startActivity(intent1);
-                                break;
-                            case R.id.WeekOverview:
-                                Intent intent2 = new Intent(getBaseContext(), WeekOverview.class);
-                                startActivity(intent2);
-                                break;
-                            case R.id.Test:
-
-                                break;
-                        }
-                        return false;
-                    }
-                });
 
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
@@ -141,6 +118,31 @@ public class TestingWS extends Activity {
 
             }
         });
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.navigationBar);
+
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.Thermostat:
+                                Intent intent1 = new Intent(getBaseContext(), ThermostatActivity.class);
+                                startActivity(intent1);
+                                break;
+                            case R.id.WeekOverview:
+                                Intent intent2 = new Intent(getBaseContext(), WeekOverview.class);
+                                startActivity(intent2);
+                                break;
+                            case R.id.Test:
+
+                                break;
+                        }
+                        return false;
+                    }
+                });
     }
 
     /* Pull data from the server and store them in local variables
