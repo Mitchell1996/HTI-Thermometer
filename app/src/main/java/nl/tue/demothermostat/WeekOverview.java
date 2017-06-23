@@ -11,6 +11,7 @@ import org.thermostatapp.util.WeekProgram;
 /**
  * Created by nstash on 06/05/15.
  */
+public class WeekOverview extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
