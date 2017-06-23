@@ -3,6 +3,7 @@ package nl.tue.demothermostat;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -20,8 +21,7 @@ import java.net.ConnectException;
 
 public class ThermostatActivity extends Activity {
 
-    public static double temp, temp_current, temp_day, temp_night;             //this should be retrieved from the server to show the current temp
-    public static double temp_target = 21.0;       //is accessible from other classes
+    public static double temp, temp_current, temp_target, temp_day, temp_night;             //this should be retrieved from the server to show the current temp
     TextView currentTemp, targetTemp;
 
     @Override
@@ -37,6 +37,10 @@ public class ThermostatActivity extends Activity {
                 try {
                     temp_day = Double.parseDouble(HeatingSystem.get("dayTemperature"));
                     temp_night = Double.parseDouble(HeatingSystem.get("nightTemperature"));
+                    temp_current = Double.parseDouble(HeatingSystem.get("currentTemperature"));
+                    temp_target = Double.parseDouble(HeatingSystem.get("targetTemperature"));
+                    currentTemp.setText(String.valueOf(temp_current));
+                    targetTemp.setText(String.valueOf(temp_target));
                 } catch (ConnectException e) {
                     e.printStackTrace();
                 }
@@ -47,13 +51,35 @@ public class ThermostatActivity extends Activity {
         targetTemp = (TextView)findViewById(R.id.targetTemp);
         Button bPlus = (Button) findViewById(R.id.bPlus);
         Button bMinus = (Button)findViewById(R.id.bMinus);
-
-        //Sets TextView variables to their corresponding UI element by its id
-        currentTemp = (TextView)findViewById(R.id.currentTemp);     //TBD TextView for current temp
-        targetTemp = (TextView)findViewById(R.id.targetTemp);       //TBD TextView for target temp
-
         Button weekOverview = (Button)findViewById(R.id.week_overview);
         final ToggleButton targetToggle = (ToggleButton) findViewById(R.id.targetToggle);
+
+        /*
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                currentTemp.setText(String.valueOf(temp_current));
+            }
+        }); */
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (!Thread.interrupted()) {
+                    try {
+                        Thread.sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                currentTemp.setText(String.valueOf(temp_current));
+                            }
+                        });
+                    } catch (InterruptedException e) {
+                        // ooops
+                    }
+                }
+            }
+        }).start();
 
         weekOverview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,10 +183,14 @@ public class ThermostatActivity extends Activity {
                 }).start();
             }
         });
+        targetToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
 
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
