@@ -1,11 +1,12 @@
 /**
- * Class for testing Web Service (http://wwwis.win.tue.nl/2id40-ws), 
- * gives a few examples of 
+ * Class for testing Web Service (http://wwwis.win.tue.nl/2id40-ws),
+ * gives a few examples of
  * getting data from and uploading data to the server
  */
 package nl.tue.demothermostat;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 
 import org.thermostatapp.util.*;
 import org.w3c.dom.Text;
+
+import java.net.ConnectException;
 
 public class TestingWS extends Activity {
 
@@ -28,65 +31,30 @@ public class TestingWS extends Activity {
         setContentView(R.layout.testing_ws);
 
         /* Use BASE_ADDRESS dedicated for your group,
-		 * change 100 to you group number
+         * change 100 to you group number
 		 */
         HeatingSystem.BASE_ADDRESS = "http://wwwis.win.tue.nl/2id40-ws/48";
         HeatingSystem.WEEK_PROGRAM_ADDRESS = HeatingSystem.BASE_ADDRESS + "/weekProgram";
 
-        getdata = (Button)findViewById(R.id.getdata);
-        putdata = (Button)findViewById(R.id.putdata);
-        data1 = (TextView)findViewById(R.id.textView11);
-        data2 = (TextView)findViewById(R.id.textView12);
-        data3 = (TextView)findViewById(R.id.textView13);
-        data4 = (TextView)findViewById(R.id.textView14);
-        data5 = (TextView)findViewById(R.id.textView15);
-        data6 = (TextView)findViewById(R.id.textView16);
-        data7 = (TextView)findViewById(R.id.textView17);
+        getdata = (Button) findViewById(R.id.getdata);
+        putdata = (Button) findViewById(R.id.putdata);
+        data1 = (TextView) findViewById(R.id.textView11);
+        data2 = (TextView) findViewById(R.id.textView12);
+        data3 = (TextView) findViewById(R.id.textView13);
+        data4 = (TextView) findViewById(R.id.textView14);
+        data5 = (TextView) findViewById(R.id.textView15);
+        data6 = (TextView) findViewById(R.id.textView16);
+        data7 = (TextView) findViewById(R.id.textView17);
 
         /* When the user clicks on GET Data button the value of the corresponding parameter is read from the server
         and displayed in TextView data1
          */
         getdata.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        date = "";
-                        time = "";
-                        dayt = "";
-                        nightt = "";
-                        cnt = "";
-                        tgt = "";
-                        wpg = "";
-                        try {
-                            cnt = HeatingSystem.get("currentTemperature");
-                            date = HeatingSystem.get("day");
-                            time = HeatingSystem.get("time");
-                            tgt = HeatingSystem.get("targetTemperature");
-                            dayt = HeatingSystem.get("dayTemperature");
-                            nightt = HeatingSystem.get("nightTemperature");
-                            wpg = HeatingSystem.get("weekProgramState");
-
-                            data1.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    data1.setText(date);
-                                    data2.setText(time);
-                                    data3.setText(dayt);
-                                    data4.setText(nightt);
-                                    data5.setText(cnt);
-                                    data6.setText(tgt);
-                                    data7.setText(wpg);
-                                }
-                            });
-                        } catch (Exception e) {
-                            System.err.println("Error from getdata "+e);
-                        }
-                    }
-                }).start();
+                getData();
+                setData();
             }
         });
 
@@ -94,7 +62,6 @@ public class TestingWS extends Activity {
         and displayed in TextView data1, the new uploaded value is displayed in TextView data2
          */
         putdata.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
@@ -145,5 +112,36 @@ public class TestingWS extends Activity {
 
             }
         });
+    }
+
+    /* Pull data from the server and store them in local variables
+     */
+    void getData() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    cnt = HeatingSystem.get("currentTemperature");
+                    date = HeatingSystem.get("day");
+                    time = HeatingSystem.get("time");
+                    tgt = HeatingSystem.get("targetTemperature");
+                    dayt = HeatingSystem.get("dayTemperature");
+                    nightt = HeatingSystem.get("nightTemperature");
+                    wpg = HeatingSystem.get("weekProgramState");
+                } catch (ConnectException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    void setData() {
+        data1.setText(date);
+        data2.setText(time);
+        data3.setText(dayt);
+        data4.setText(nightt);
+        data5.setText(cnt);
+        data6.setText(tgt);
+        data7.setText(wpg);
     }
 }

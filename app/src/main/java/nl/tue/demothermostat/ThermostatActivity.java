@@ -16,7 +16,9 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import org.thermostatapp.util.HeatingSystem;
+
 import java.net.ConnectException;
+import java.util.StringTokenizer;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,64 +28,59 @@ public class ThermostatActivity extends Activity {
     TextView currentTemp, targetTemp;
     private Handler yourHandler = new Handler();
     private Timer yourTimer = null;
+    boolean firstPull = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thermostat);
-        final LinearLayout ll = (LinearLayout)findViewById(R.id.Parent);
+        final LinearLayout ll = (LinearLayout) findViewById(R.id.Parent);
 
-        currentTemp = (TextView)findViewById(R.id.currentTemp);
-        targetTemp = (TextView)findViewById(R.id.targetTemp);
+        currentTemp = (TextView) findViewById(R.id.currentTemp);
+        targetTemp = (TextView) findViewById(R.id.targetTemp);
         Button bPlus = (Button) findViewById(R.id.bPlus);
-        Button bMinus = (Button)findViewById(R.id.bMinus);
-        Button weekOverview = (Button)findViewById(R.id.week_overview);
+        Button bMinus = (Button) findViewById(R.id.bMinus);
+        Button weekOverview = (Button) findViewById(R.id.week_overview);
         final ToggleButton targetToggle = (ToggleButton) findViewById(R.id.targetToggle);
 
-        //Gets day/night temperatures from server and stores them in the variables
-        AsyncTask.execute(new Runnable() {
+        /* Constantly pulls temperatures from server and displays
+        the current temperature only
+         */
+        final Thread tempsPull = new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    temp_day = Double.parseDouble(HeatingSystem.get("dayTemperature"));
-                    temp_night = Double.parseDouble(HeatingSystem.get("nightTemperature"));
-                    temp_current = Double.parseDouble(HeatingSystem.get("currentTemperature"));
-                    temp_target = Double.parseDouble(HeatingSystem.get("targetTemperature"));
-                } catch (ConnectException e) {
-                    e.printStackTrace();
+                while (true) {
+                    try {
+                        Thread.sleep(300);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        temp_current = Double.parseDouble(HeatingSystem.get("currentTemperature"));
+                        if (!firstPull) {       //only retrieve these temps once at start
+                            temp_target = Double.parseDouble(HeatingSystem.get("targetTemperature"));
+                            temp_day = Double.parseDouble(HeatingSystem.get("dayTemperature"));
+                            temp_night = Double.parseDouble(HeatingSystem.get("nightTemperature"));
+                            firstPull = true;
+                            temp = temp_target;
+                        }
+                    } catch (ConnectException e) {
+                        e.printStackTrace();
+                    }
+
+                    currentTemp.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            currentTemp.setText(String.valueOf(temp_current));
+                            targetTemp.setText(String.valueOf(temp) + " \u2103");
+                        }
+                    });
                 }
             }
         });
 
-        if (yourTimer != null) {
-            yourTimer.cancel();
-        }
-        yourTimer = new Timer();
-        yourTimer.scheduleAtFixedRate(new TimeDisplayTimerTask(), 0, 1000);
-
-
-
-        /*
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (!Thread.interrupted()) {
-                    try {
-                        Thread.sleep(1000);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                currentTemp.setText(String.valueOf(temp_current));
-                            }
-                        });
-                    } catch (InterruptedException e) {
-                        // ooops
-                    }
-                }
-            }
-        }).start(); */
-
+        tempsPull.start();
         weekOverview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,7 +89,7 @@ public class ThermostatActivity extends Activity {
             }
         });
 
-        Button testingWS = (Button)findViewById(R.id.testing_ws);
+        Button testingWS = (Button) findViewById(R.id.testing_ws);
 
         testingWS.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,9 +99,9 @@ public class ThermostatActivity extends Activity {
             }
         });
 
-        final Switch dNSwitch = (Switch)findViewById(R.id.switch1);
+        final Switch dNSwitch = (Switch) findViewById(R.id.switch1);
 
-        dNSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+        dNSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -189,28 +186,41 @@ public class ThermostatActivity extends Activity {
         targetToggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            if (targetToggle.isChecked()) {
+                                if (dNSwitch.isChecked()) {
 
+                                }
+                            }
+                            temp_target = Double.parseDouble(HeatingSystem.get("targetTemperature"));
+                            temp_day = Double.parseDouble(HeatingSystem.get("dayTemperature"));
+                            temp_night = Double.parseDouble(HeatingSystem.get("nightTemperature"));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        targetTemp.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                targetTemp.setText(String.valueOf(temp) + " \u2103");
+                            }
+                        });
+                    }
+                }).start(); */
             }
         });
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }
-    class TimeDisplayTimerTask extends TimerTask {
-        @Override
-        public void run() {
-            // run on another thread
-            yourHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    currentTemp.setText(String.valueOf(temp_current));
-                }
-            });
-        }
     }
 }
 
