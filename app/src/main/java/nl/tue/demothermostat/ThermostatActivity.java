@@ -216,7 +216,7 @@ public class ThermostatActivity extends Activity {
                                 startActivity(intent2);
                                 break;
                             case R.id.Test:
-                                Intent intent3 = new Intent(getBaseContext(), WeekOverview.class);
+                                Intent intent3 = new Intent(getBaseContext(), TestingWS.class);
                                 startActivity(intent3);
                                 break;
                         }
@@ -226,11 +226,5 @@ public class ThermostatActivity extends Activity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 }
 
