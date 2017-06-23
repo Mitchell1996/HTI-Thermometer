@@ -44,7 +44,6 @@ public class ThermostatActivity extends Activity {
         targetTemp = (TextView) findViewById(R.id.targetTemp);
         Button bPlus = (Button) findViewById(R.id.bPlus);
         Button bMinus = (Button) findViewById(R.id.bMinus);
-        Button weekOverview = (Button) findViewById(R.id.week_overview);
         final ToggleButton targetToggle = (ToggleButton) findViewById(R.id.targetToggle);
 
         /* Constantly pulls temperatures from server and displays
@@ -84,23 +83,6 @@ public class ThermostatActivity extends Activity {
         });
 
         tempsPull.start();
-        weekOverview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), WeekOverview.class);
-                startActivity(intent);
-            }
-        });
-
-        Button testingWS = (Button) findViewById(R.id.testing_ws);
-
-        testingWS.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), TestingWS.class);
-                startActivity(intent);
-            }
-        });
 
         final Switch dNSwitch = (Switch) findViewById(R.id.switch1);
 
@@ -218,7 +200,7 @@ public class ThermostatActivity extends Activity {
         });
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
-                findViewById(R.id.navigation);
+                findViewById(R.id.navigationBar);
 
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
