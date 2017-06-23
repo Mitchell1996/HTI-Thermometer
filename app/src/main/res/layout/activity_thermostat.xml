@@ -82,20 +82,18 @@
         android:textOff="@string/Day"
         android:textOn="@string/Night" />
 
-    <Button
+    <Button style="@style/DayButton"
         android:id="@+id/week_overview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Week Overview"
-        android:textColor="#ffffff"/>
+        android:text="Week Overview" />
 
-    <Button
+    <Button style="@style/DayButton"
         android:id="@+id/testing_ws"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Testing Web Service"
-        android:textColor="#ffffff"/>
+        android:text="Testing Web Service" />
 
 </LinearLayout>
