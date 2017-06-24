@@ -63,28 +63,17 @@
         android:layout_height="wrap_content">
 
 
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/targetToggle"
-            android:layout_marginStart="32dp"
-            android:layout_weight="0.08"
-            android:text="Day/Night"
-            android:textColor="@color/colorPrimaryDark"
-            android:textOff="@string/Day"
-            android:textOn="@string/Night" />
 
-        <ToggleButton
-            android:id="@+id/targetToggle"
+
+        <TextView
+            android:id="@+id/VacationMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="false"
-            android:onClick="onToggleClicked"
-            android:text="ToggleButton"
-            android:layout_below="@+id/bMinus"
-            android:layout_centerHorizontal="true" />
+            android:text="Vacation mode"
+            android:layout_alignBaseline="@+id/vacationToggle"
+            android:layout_alignBottom="@+id/vacationToggle"
+            android:layout_alignEnd="@+id/targetTemp"
+            android:layout_marginEnd="13dp" />
 
         <Button
             android:id="@+id/bMinus"
@@ -122,10 +111,9 @@
             android:id="@+id/vacationToggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/bPlus"
+            android:text="VacationMode"
             android:layout_below="@+id/bPlus"
-            android:layout_marginStart="17dp"
-            android:text="VacationMode" />
+            android:layout_toEndOf="@+id/targetTemp" />
 
 
     </RelativeLayout>
@@ -176,6 +164,19 @@
             android:text="+"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="30dp" />
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.08"
+            android:text="Day/Night"
+            android:textColor="@color/colorPrimaryDark"
+            android:textOff="@string/Day"
+            android:textOn="@string/Night"
+            android:layout_alignBottom="@+id/seekBar2"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="11dp" />
 
         </RelativeLayout>
 
