@@ -26,8 +26,10 @@ import java.util.ArrayList;
 public class TestingWS extends Activity {
 
     Button getdata, putdata;
-    TextView data1, data2, data3, data4, data5, data6, data7, wpgtest;
+    TextView data1, data2, data3, data4, data5, data6, data7, wpgtest, wpg1, wpg2, wpg3;
     String date, time, dayt, nightt, cnt, tgt, wpgState;
+    WeekProgram wpgex;
+    Switch mon1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,11 @@ public class TestingWS extends Activity {
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.navigationBar);
         bottomNavigationView.setSelectedItemId(R.id.Test);
+        wpg1 = (TextView) findViewById(R.id.wpg1);
+        wpg2 = (TextView) findViewById(R.id.wpg2);
+        wpg3 = (TextView) findViewById(R.id.wpg3);
+
+
 
         /* When the user clicks on GET Data button the value of the corresponding parameter is read from the server
         and displayed in TextView data1
@@ -88,6 +95,9 @@ public class TestingWS extends Activity {
                             // Set the week program to default
                             wpg.setDefault();
 
+                            mon1 = wpgex.data.get("Monday").get(1);
+                            final String p;
+                            p = mon1.getTime();
                             /*
                             wpg.data.get("Monday").set(5, new Switch("day", true, "07:30"));
                             wpg.data.get("Monday").set(1, new Switch("night", true, "08:30"));
@@ -103,6 +113,7 @@ public class TestingWS extends Activity {
                             wpgtest.post(new Runnable() {
                                 @Override
                                 public void run() {
+                                    wpgtest.setText(p);
                                 }
                             });
                             toast.show();

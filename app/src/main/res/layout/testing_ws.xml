@@ -17,6 +17,21 @@
         android:layout_height="wrap_content"
         android:text="PUT Data" />
 
+    <TextView
+        android:id="@+id/wpg1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/wpg2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/wpg3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="366dp"
@@ -121,20 +136,11 @@
                 android:padding="3dip" />
 
         </TableRow>
-
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
-            <TextView
-                android:id="@+id/wpgTest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
     </TableLayout>
 
 <RelativeLayout
