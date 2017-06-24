@@ -48,6 +48,10 @@
         android:layout_height="wrap_content"
         android:text="Sunday"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <android.support.design.widget.BottomNavigationView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -55,9 +59,8 @@
         android:id="@+id/navigationBar"
         android:layout_gravity="bottom"
         design:menu="@menu/menu_main"
-        android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"/>
-
+    </RelativeLayout>
 
 </LinearLayout>
 

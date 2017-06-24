@@ -192,7 +192,6 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         design:menu="@menu/menu_main"
-        android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
