@@ -19,6 +19,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import org.thermostatapp.util.HeatingSystem;
+import org.thermostatapp.util.InvalidInputValueException;
 
 import java.net.ConnectException;
 
@@ -27,6 +28,7 @@ public class ThermostatActivity extends Activity {
     public static double temp, temp_current, temp_target, temp_day, temp_night;             //this should be retrieved from the server to show the current temp
     TextView currentTemp, targetTemp;
     boolean firstPull = false;
+    boolean vacationMode;
 
 
     @Override
@@ -39,6 +41,7 @@ public class ThermostatActivity extends Activity {
         Button bPlus = (Button) findViewById(R.id.bPlus);
         Button bMinus = (Button) findViewById(R.id.bMinus);
         final ToggleButton targetToggle = (ToggleButton) findViewById(R.id.targetToggle);
+        final ToggleButton vacationToggle = (ToggleButton) findViewById(R.id.vacationToggle);
         final Switch dNSwitch = (Switch) findViewById(R.id.switch1);
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.navigationBar);
@@ -58,6 +61,7 @@ public class ThermostatActivity extends Activity {
                     try {
                         temp_current = Double.parseDouble(HeatingSystem.get("currentTemperature"));
                         if (!firstPull) {       //only retrieve these temps once at start
+                            vacationMode = HeatingSystem.get("weekProgramState").equals("off");
                             temp_target = Double.parseDouble(HeatingSystem.get("targetTemperature"));
                             temp_day = Double.parseDouble(HeatingSystem.get("dayTemperature"));
                             temp_night = Double.parseDouble(HeatingSystem.get("nightTemperature"));
@@ -72,6 +76,7 @@ public class ThermostatActivity extends Activity {
                         public void run() {
                             currentTemp.setText(String.valueOf(temp_current));
                             targetTemp.setText(String.valueOf(temp) + " \u2103");
+                            vacationToggle.setChecked(vacationMode);
                         }
                     });
                 }
@@ -212,25 +217,46 @@ public class ThermostatActivity extends Activity {
             }
         });
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
+        vacationToggle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.Thermostat:
-                        break;
-                    case R.id.WeekOverview:
-                        Intent intent2 = new Intent(getBaseContext(), WeekOverview.class);
-                        startActivity(intent2);
-                        break;
-                    case R.id.Test:
-                        Intent intent3 = new Intent(getBaseContext(), TestingWS.class);
-                        startActivity(intent3);
-                        break;
-                }
-                return false;
+            public void onClick(View v) {
+                vacationMode = !vacationMode;
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            if (vacationMode) {
+                                HeatingSystem.put("weekProgramState", "off");       //VacationMode on
+                            } else {
+                                HeatingSystem.put("weekProgramState", "on");        //VacationMode off
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
             }
         });
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.Thermostat:
+                                break;
+                            case R.id.WeekOverview:
+                                Intent intent2 = new Intent(getBaseContext(), WeekOverview.class);
+                                startActivity(intent2);
+                                break;
+                            case R.id.Test:
+                                Intent intent3 = new Intent(getBaseContext(), TestingWS.class);
+                                startActivity(intent3);
+                                break;
+                        }
+                        return false;
+                    }
+                });
     }
 }
 

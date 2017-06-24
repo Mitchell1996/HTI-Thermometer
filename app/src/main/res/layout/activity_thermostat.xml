@@ -82,11 +82,11 @@
             android:id="@+id/targetToggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/bPlus"
-            android:layout_centerHorizontal="true"
             android:checked="false"
             android:onClick="onToggleClicked"
-            android:text="ToggleButton" />
+            android:text="ToggleButton"
+            android:layout_below="@+id/bMinus"
+            android:layout_centerHorizontal="true" />
 
         <Button
             android:id="@+id/bMinus"
@@ -120,8 +120,14 @@
             android:textColor="#ffffff"
             android:textSize="30dp" />
 
-
-
+        <ToggleButton
+            android:id="@+id/vacationToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/bPlus"
+            android:layout_below="@+id/bPlus"
+            android:layout_marginStart="17dp"
+            android:text="VacationMode" />
 
 
     </RelativeLayout>
