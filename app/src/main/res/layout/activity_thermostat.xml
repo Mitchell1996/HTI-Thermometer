@@ -134,31 +134,31 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/bMinus"
+            android:id="@+id/bMinus2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:text="-"
-            android:textColor="#ffffff"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="30dp" />
 
         <TextView
-            android:id="@+id/targetTemp"
+            android:id="@+id/DaynightTemp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/bMinus"
-            android:layout_alignBottom="@+id/bMinus"
+            android:layout_alignBaseline="@+id/bMinus2"
+            android:layout_alignBottom="@+id/bMinus2"
             android:layout_centerHorizontal="true"
             android:text=" &#x2103;"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#ffffff"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="30dp" />
 
         <SeekBar
             android:id="@+id/seekBar2"
             style="@style/Widget.AppCompat.SeekBar.Discrete"
-            android:layout_alignBaseline="@+id/bMinus"
+            android:layout_alignBaseline="@+id/bMinus2"
             android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_centerHorizontal="true"
@@ -167,13 +167,13 @@
 
 
         <Button
-            android:id="@+id/bPlus"
+            android:id="@+id/bPlus2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:text="+"
-            android:textColor="#ffffff"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="30dp" />
 
         </RelativeLayout>
