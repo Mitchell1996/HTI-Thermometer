@@ -1,5 +1,6 @@
 package nl.tue.demothermostat;
 
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
+import org.thermostatapp.util.Switch;
 
 
 public class AddSwitch extends AppCompatActivity {
@@ -26,7 +30,7 @@ public class AddSwitch extends AppCompatActivity {
             }
         });
 
-        TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker);
+        final TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker);
         timePicker.setIs24HourView(true);
 
 
@@ -44,7 +48,8 @@ public class AddSwitch extends AppCompatActivity {
                                 startActivity(intent);
                                 break;
                             case R.id.Save:
-
+                                Toast.makeText(getBaseContext(),
+                                        timePicker.getHour()+ ":" + timePicker.getMinute(), Toast.LENGTH_SHORT).show();
                                 startActivity(intent);
                                 break;
                         }
