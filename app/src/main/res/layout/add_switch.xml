@@ -13,7 +13,7 @@
         android:background="@color/colorPrimary"
         app:title="Add Switch"
         app:titleTextColor="@color/white"
-        app:navigationIcon="?attr/homeAsUpIndicator" />
+        app:navigationIcon="@drawable/ic_back_icon" />
 
     <TimePicker
         android:id="@+id/timePicker"
