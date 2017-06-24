@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:design="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:paddingTop="@dimen/activity_vertical_margin"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -50,9 +51,12 @@
     <android.support.design.widget.BottomNavigationView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
         android:id="@+id/navigationBar"
         android:layout_gravity="bottom"
-        design:menu="@menu/menu_main"/>
+        design:menu="@menu/menu_main"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"/>
 
 
 </LinearLayout>
