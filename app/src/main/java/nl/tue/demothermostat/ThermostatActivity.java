@@ -41,7 +41,6 @@ public class ThermostatActivity extends Activity {
         targetTemp = (TextView) findViewById(R.id.targetTemp);
         Button bPlus = (Button) findViewById(R.id.bPlus);
         Button bMinus = (Button) findViewById(R.id.bMinus);
-        final ToggleButton targetToggle = (ToggleButton) findViewById(R.id.targetToggle);
         final ToggleButton vacationToggle = (ToggleButton) findViewById(R.id.vacationToggle);
         final Switch dNSwitch = (Switch) findViewById(R.id.switch1);
 
@@ -93,7 +92,6 @@ public class ThermostatActivity extends Activity {
         dNSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (targetToggle.isChecked()) {     //only if the ToggleButton is checked
                     if (isChecked) {        //night temperature
                         //toggle is enabled
                         temp = temp_night;
@@ -102,14 +100,12 @@ public class ThermostatActivity extends Activity {
                         temp = temp_day;
                     }
                     targetTemp.setText(temp + " \u2103");
-                }
             }
         });
         bPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (temp <= 29) {       //[5.0, 29.0]
-                    if (targetToggle.isChecked()) {
                         if (dNSwitch.isChecked()) {     //night
                             temp_night++;
                             temp = temp_night;
@@ -117,12 +113,8 @@ public class ThermostatActivity extends Activity {
                             temp_day++;
                             temp = temp_day;
                         }
-                    } else {        //target
-                        temp_target++;
-                        temp = temp_target;
                     }
-                } else if (temp < 30) {     //[29.1, 29.9]
-                    if (targetToggle.isChecked()) {
+                if (temp < 30) {     //[29.1, 29.9]
                         if (dNSwitch.isChecked()) {     //night
                             temp_night = 30;
                             temp = temp_night;
@@ -130,10 +122,6 @@ public class ThermostatActivity extends Activity {
                             temp_day = 30;
                             temp = temp_day;
                         }
-                    } else {        //target
-                        temp_target = 30;
-                        temp = temp_target;
-                    }
                 } else {
                     Toast toast = Toast.makeText(getApplicationContext(), "You can't set the Target Temperature above 30", Toast.LENGTH_SHORT);
                     toast.show();
@@ -158,7 +146,6 @@ public class ThermostatActivity extends Activity {
             @Override
             public void onClick(View view) {
                 if (temp >= 6) {        //[6.0, 30.0]
-                    if (targetToggle.isChecked()) {
                         if (dNSwitch.isChecked()) {     //night
                             temp_night--;
                             temp = temp_night;
@@ -166,12 +153,7 @@ public class ThermostatActivity extends Activity {
                             temp_day--;
                             temp = temp_day;
                         }
-                    } else {
-                        temp_target--;
-                        temp = temp_target;
-                    }
                 } else if (temp > 5) {      //[5.0, 5,9]
-                    if (targetToggle.isChecked()) {
                         if (dNSwitch.isChecked()) {     //night
                             temp_night = 5;
                             temp = temp_night;
@@ -179,10 +161,6 @@ public class ThermostatActivity extends Activity {
                             temp_day = 5;
                             temp = temp_day;
                         }
-                    } else {        //target
-                        temp_target = 5;
-                        temp = temp_target;
-                    }
                 } else {        //[5.0]
                     Toast toast = Toast.makeText(getApplicationContext(), "You can't set the Target Temperature below 5", Toast.LENGTH_SHORT);
                     toast.show();
@@ -201,24 +179,6 @@ public class ThermostatActivity extends Activity {
                         }
                     }
                 }).start();
-            }
-        });
-
-        targetToggle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /* On toggle it will display the target/day/night temperature
-                 */
-                if (targetToggle.isChecked()) {     //if toggle on
-                    if (dNSwitch.isChecked()) {     //if night
-                        temp = temp_night;
-                    } else {        //if day
-                        temp = temp_day;
-                    }
-                } else {        //if toggle off
-                    temp = temp_target;
-                }
-                targetTemp.setText(String.valueOf(temp) + "\u2103");        //update the TextView
             }
         });
 
