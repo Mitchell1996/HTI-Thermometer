@@ -49,13 +49,14 @@
         android:id="@+id/circular"
         android:layout_width="138dp"
         android:layout_height="129dp"
-        android:padding="15dp"
+        android:padding="10dp"
         circular:angle="3.14"
         circular:border_color="#505090"
         circular:border_thickness="14dp"
-        circular:border_gradient_colors="#f05151;#4a90e2;#4a90e2"
-        circular:thumb_color="#30AEFF"
-        circular:thumb_size="6dp" />
+        circular:border_gradient_colors="#f05151;#FFFFFF;#FFFFFF;#FFFFFF;#4a90e2;#4a90e2;#4a90e2;#4a90e2;#f05151;#f05151;"
+        circular:thumb_size="13dp"
+        circular:thumb_color="#9932CC"/>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
