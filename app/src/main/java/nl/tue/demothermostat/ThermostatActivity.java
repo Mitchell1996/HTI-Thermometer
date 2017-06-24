@@ -2,6 +2,7 @@ package nl.tue.demothermostat;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -15,6 +16,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+import android.widget.SeekBar;
 
 import org.thermostatapp.util.HeatingSystem;
 import org.thermostatapp.util.InvalidInputValueException;
@@ -27,6 +29,7 @@ public class ThermostatActivity extends Activity {
     TextView currentTemp, targetTemp, dNTemp;
     boolean firstPull = false;
     boolean vacationMode;
+    SeekBar dNSlider;
 
 
     @Override
@@ -38,6 +41,7 @@ public class ThermostatActivity extends Activity {
         currentTemp = (TextView) findViewById(R.id.currentTemp);
         targetTemp = (TextView) findViewById(R.id.targetTemp);
         dNTemp = (TextView) findViewById(R.id.dNTemp);
+        dNSlider = (SeekBar) findViewById(R.id.dNSlider);
         Button bPlus = (Button) findViewById(R.id.bPlus);       //for targetTemp
         Button bMinus = (Button) findViewById(R.id.bMinus);     //for targetTemp
         Button bPlus2 = (Button) findViewById(R.id.bPlus2);     //for day/night temp
@@ -48,15 +52,16 @@ public class ThermostatActivity extends Activity {
                 findViewById(R.id.navigationBar);
         bottomNavigationView.setSelectedItemId(R.id.Thermostat);
 
+
         /* Constantly pulls temperatures from server and displays
         the current temperature only
          */
-        final Thread tempsPull = new Thread(new Runnable() {
+        Thread tempsPull = new Thread(new Runnable() {
             @Override
             public void run() {
                 while (true) {
                     try {
-                        Thread.sleep(300);
+                        Thread.sleep(500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -79,6 +84,8 @@ public class ThermostatActivity extends Activity {
                             if (!firstPull) {
                                 targetTemp.setText(String.valueOf(temp_target) + " \u2103");
                                 dNTemp.setText(String.valueOf(temp) + " \u2103");
+                                int i = (int) temp - 5;
+                                dNSlider.setProgress(i);
                                 firstPull = true;
                             }
                             vacationToggle.setChecked(vacationMode);
@@ -100,6 +107,8 @@ public class ThermostatActivity extends Activity {
                     //toggle is disabled
                     temp = temp_day;
                 }
+                int i = (int) temp - 5;
+                dNSlider.setProgress(i);
                 dNTemp.setText(temp + " \u2103");
             }
         });
@@ -176,6 +185,8 @@ public class ThermostatActivity extends Activity {
                     Toast toast = Toast.makeText(getApplicationContext(), "You can't set the Temperature above 30", Toast.LENGTH_SHORT);
                     toast.show();
                 }
+                int i = (int) temp - 5;
+                dNSlider.setProgress(i);
                 dNTemp.setText(temp + " \u2103");
 
                 new Thread(new Runnable() {
@@ -214,6 +225,8 @@ public class ThermostatActivity extends Activity {
                     Toast toast = Toast.makeText(getApplicationContext(), "You can't set the Temperature below 5", Toast.LENGTH_SHORT);
                     toast.show();
                 }
+                int i = (int) temp - 5;
+                dNSlider.setProgress(i);
                 dNTemp.setText(temp + " \u2103");
 
                 new Thread(new Runnable() {
@@ -249,6 +262,38 @@ public class ThermostatActivity extends Activity {
                 }).start();
             }
         });
+        dNSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                temp = i + 5;
+                dNTemp.setText(temp + " \u2103");
+                if (dNSwitch.isChecked()) {     //night
+                    temp_night = temp;
+                } else {        //day
+                    temp_day = temp;
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            HeatingSystem.put("dayTemperature", String.valueOf(temp_day));
+                            HeatingSystem.put("nightTemperature", String.valueOf(temp_night));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+            }
+        });
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -271,5 +316,25 @@ public class ThermostatActivity extends Activity {
                     }
                 });
     }
+
+    /*
+    private class getTemps extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                temp_current = Double.parseDouble(HeatingSystem.get("currentTemperature"));
+                if (!firstPull) {       //only retrieve these temps once at start
+                    vacationMode = HeatingSystem.get("weekProgramState").equals("off");
+                    temp_target = Double.parseDouble(HeatingSystem.get("targetTemperature"));
+                    temp_day = Double.parseDouble(HeatingSystem.get("dayTemperature"));
+                    temp_night = Double.parseDouble(HeatingSystem.get("nightTemperature"));
+                    temp = temp_day;
+                }
+            } catch (ConnectException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    } */
 }
 

@@ -111,7 +111,6 @@ public class TestingWS extends Activity {
                         }
                     }
                 }).start();
-
             }
         });
 

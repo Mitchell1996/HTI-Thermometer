@@ -152,13 +152,13 @@
             android:textSize="30dp" />
 
         <SeekBar
-            android:id="@+id/seekBar2"
+            android:id="@+id/dNSlider"
             style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_alignBaseline="@+id/bMinus2"
             android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_centerHorizontal="true"
-            android:max="30"
+            android:max="25"
             android:progress="3" />
 
 
@@ -181,7 +181,7 @@
             android:textColor="@color/colorPrimaryDark"
             android:textOff="@string/Day"
             android:textOn="@string/Night"
-            android:layout_alignBottom="@+id/seekBar2"
+            android:layout_alignBottom="@+id/dNSlider"
             android:layout_alignParentStart="true"
             android:layout_marginBottom="11dp" />
 
