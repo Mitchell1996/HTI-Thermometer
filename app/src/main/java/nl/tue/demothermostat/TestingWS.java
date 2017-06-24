@@ -60,7 +60,6 @@ public class TestingWS extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 getData();
-                setData();
             }
         });
 
@@ -165,17 +164,20 @@ public class TestingWS extends Activity {
                 } catch (ConnectException e) {
                     e.printStackTrace();
                 }
+                data1.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        data1.setText(date);
+                        data2.setText(time);
+                        data3.setText(dayt);
+                        data4.setText(nightt);
+                        data5.setText(cnt);
+                        data6.setText(tgt);
+                        data7.setText(wpg);
+                    }
+                });
             }
         }).start();
     }
 
-    void setData() {
-        data1.setText(date);
-        data2.setText(time);
-        data3.setText(dayt);
-        data4.setText(nightt);
-        data5.setText(cnt);
-        data6.setText(tgt);
-        data7.setText(wpg);
-    }
 }

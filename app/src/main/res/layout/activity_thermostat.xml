@@ -133,7 +133,7 @@
             android:textSize="30dp" />
 
         <TextView
-            android:id="@+id/DaynightTemp"
+            android:id="@+id/dNTemp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/bMinus2"
@@ -159,11 +159,11 @@
             android:id="@+id/bPlus2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
             android:text="+"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="30dp" />
+            android:textSize="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
 
         <Switch
             android:id="@+id/switch1"
