@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@color/day"
+    android:background="@color/white"
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:id="@+id/Parent"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:text="Current Temperature"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#ffffff"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="30dp" />
 
 
@@ -34,7 +34,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text=" &#x2103;"
         android:textSize="30dp"
-        android:textColor="#ffffff"
+        android:textColor="@color/colorPrimaryDark"
         android:id="@+id/currentTemp"
         android:paddingBottom="20dp"/>
 
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:text="Target Temperature"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#ffffff"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="30dp" />
 
     <me.angrybyte.circularslider.CircularSlider
@@ -74,7 +74,7 @@
             android:layout_marginStart="32dp"
             android:layout_weight="0.08"
             android:text="Day/Night"
-            android:textColor="#ffffff"
+            android:textColor="@color/colorPrimaryDark"
             android:textOff="@string/Day"
             android:textOn="@string/Night" />
 
@@ -95,7 +95,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:text="-"
-            android:textColor="#ffffff"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="30dp" />
 
         <TextView
@@ -107,7 +107,7 @@
             android:layout_centerHorizontal="true"
             android:text=" &#x2103;"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#ffffff"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="30dp" />
 
         <Button
@@ -117,7 +117,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:text="+"
-            android:textColor="#ffffff"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="30dp" />
 
         <ToggleButton

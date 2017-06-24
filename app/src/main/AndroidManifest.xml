@@ -29,6 +29,10 @@
             android:label="Test" >
         </activity>
 
+        <activity android:name=".MondaySwitches"
+            android:label="Monday">
+        </activity>
+
     </application>
 
 </manifest>

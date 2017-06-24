@@ -32,7 +32,8 @@ public class WeekOverview extends AppCompatActivity {
         monday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View view) {
-
+                Intent intent = new Intent(view.getContext(), MondaySwitches.class);
+                startActivity(intent);
             }
         });
 
