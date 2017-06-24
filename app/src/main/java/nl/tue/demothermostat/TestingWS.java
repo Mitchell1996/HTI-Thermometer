@@ -21,12 +21,13 @@ import org.thermostatapp.util.*;
 import org.w3c.dom.Text;
 
 import java.net.ConnectException;
+import java.util.ArrayList;
 
 public class TestingWS extends Activity {
 
     Button getdata, putdata;
-    TextView data1, data2, data3, data4, data5, data6, data7;
-    String oldv, newv, date, time, dayt, nightt, cnt, tgt, wpg;
+    TextView data1, data2, data3, data4, data5, data6, data7, wpgtest;
+    String date, time, dayt, nightt, cnt, tgt, wpgState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,10 @@ public class TestingWS extends Activity {
         data5 = (TextView) findViewById(R.id.textView15);
         data6 = (TextView) findViewById(R.id.textView16);
         data7 = (TextView) findViewById(R.id.textView17);
+        wpgtest = (TextView) findViewById(R.id.wpgTest);
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.navigationBar);
+        bottomNavigationView.setSelectedItemId(R.id.Test);
 
         /* When the user clicks on GET Data button the value of the corresponding parameter is read from the server
         and displayed in TextView data1
@@ -75,15 +80,14 @@ public class TestingWS extends Activity {
                     @Override
                     public void run() {
                         try {
-                            oldv = HeatingSystem.get("targetTemperature");
                             HeatingSystem.put("targetTemperature", String.valueOf(ThermostatActivity.temp_target));     //store local temp_target to server
-                            newv = HeatingSystem.get("targetTemperature");
 
                             /* Uncomment the following parts to see how to work with the properties of the week program */
                             // Get the week program
-                            WeekProgram wpg = HeatingSystem.getWeekProgram();
+                            final WeekProgram wpg = HeatingSystem.getWeekProgram();
                             // Set the week program to default
                             wpg.setDefault();
+
                             /*
                             wpg.data.get("Monday").set(5, new Switch("day", true, "07:30"));
                             wpg.data.get("Monday").set(1, new Switch("night", true, "08:30"));
@@ -96,16 +100,9 @@ public class TestingWS extends Activity {
                             //Upload the updated program
                             //HeatingSystem.setWeekProgram(wpg);
 
-                            data1.post(new Runnable() {
+                            wpgtest.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    //data1.setText(oldv);
-                                }
-                            });
-                            data2.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //data2.setText(newv);
                                 }
                             });
                             toast.show();
@@ -117,11 +114,6 @@ public class TestingWS extends Activity {
 
             }
         });
-
-        BottomNavigationView bottomNavigationView = (BottomNavigationView)
-                findViewById(R.id.navigationBar);
-        bottomNavigationView.setSelectedItemId(R.id.Test);
-
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -160,7 +152,7 @@ public class TestingWS extends Activity {
                     tgt = HeatingSystem.get("targetTemperature");
                     dayt = HeatingSystem.get("dayTemperature");
                     nightt = HeatingSystem.get("nightTemperature");
-                    wpg = HeatingSystem.get("weekProgramState");
+                    wpgState = HeatingSystem.get("weekProgramState");
                 } catch (ConnectException e) {
                     e.printStackTrace();
                 }
@@ -173,7 +165,7 @@ public class TestingWS extends Activity {
                         data4.setText(nightt);
                         data5.setText(cnt);
                         data6.setText(tgt);
-                        data7.setText(wpg);
+                        data7.setText(wpgState);
                     }
                 });
             }
