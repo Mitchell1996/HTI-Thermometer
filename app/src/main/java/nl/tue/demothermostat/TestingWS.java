@@ -121,6 +121,7 @@ public class TestingWS extends Activity {
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.navigationBar);
+        bottomNavigationView.setSelectedItemId(R.id.Test);
 
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -131,10 +132,12 @@ public class TestingWS extends Activity {
                             case R.id.Thermostat:
                                 Intent intent1 = new Intent(getBaseContext(), ThermostatActivity.class);
                                 startActivity(intent1);
+                                overridePendingTransition(R.anim.enter_left, R.anim.exit);
                                 break;
                             case R.id.WeekOverview:
                                 Intent intent2 = new Intent(getBaseContext(), WeekOverview.class);
                                 startActivity(intent2);
+                                overridePendingTransition(R.anim.enter_left, R.anim.exit);
                                 break;
                             case R.id.Test:
 

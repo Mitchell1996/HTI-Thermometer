@@ -35,6 +35,7 @@ public class ThermostatActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thermostat);
+
         final LinearLayout ll = (LinearLayout) findViewById(R.id.Parent);
         currentTemp = (TextView) findViewById(R.id.currentTemp);
         targetTemp = (TextView) findViewById(R.id.targetTemp);
@@ -43,8 +44,12 @@ public class ThermostatActivity extends Activity {
         final ToggleButton targetToggle = (ToggleButton) findViewById(R.id.targetToggle);
         final ToggleButton vacationToggle = (ToggleButton) findViewById(R.id.vacationToggle);
         final Switch dNSwitch = (Switch) findViewById(R.id.switch1);
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.navigationBar);
+        bottomNavigationView.setSelectedItemId(R.id.Thermostat);
+
+
 
         /* Constantly pulls temperatures from server and displays
         the current temperature only
@@ -90,10 +95,10 @@ public class ThermostatActivity extends Activity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (targetToggle.isChecked()) {     //only if the ToggleButton is checked
                     if (isChecked) {        //night temperature
-                        ll.setBackgroundColor(getColor(R.color.night));     //toggle is enabled
+                        //toggle is enabled
                         temp = temp_night;
                     } else {        //day temperature
-                        ll.setBackgroundColor(getColor(R.color.day));      //toggle is disabled
+                        //toggle is disabled
                         temp = temp_day;
                     }
                     targetTemp.setText(temp + " \u2103");
@@ -248,10 +253,12 @@ public class ThermostatActivity extends Activity {
                             case R.id.WeekOverview:
                                 Intent intent2 = new Intent(getBaseContext(), WeekOverview.class);
                                 startActivity(intent2);
+                                overridePendingTransition(R.anim.enter_right, R.anim.exit);
                                 break;
                             case R.id.Test:
                                 Intent intent3 = new Intent(getBaseContext(), TestingWS.class);
                                 startActivity(intent3);
+                                overridePendingTransition(R.anim.enter_right, R.anim.exit);
                                 break;
                         }
                         return false;

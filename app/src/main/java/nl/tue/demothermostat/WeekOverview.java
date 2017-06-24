@@ -34,11 +34,13 @@ public class WeekOverview extends AppCompatActivity {
             public void onClick (View view) {
                 Intent intent = new Intent(view.getContext(), MondaySwitches.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.enter_up, R.anim.exit);
             }
         });
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.navigationBar);
+        bottomNavigationView.setSelectedItemId(R.id.WeekOverview);
 
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -49,6 +51,7 @@ public class WeekOverview extends AppCompatActivity {
                             case R.id.Thermostat:
                                 Intent intent1 = new Intent(getBaseContext(), ThermostatActivity.class);
                                 startActivity(intent1);
+                                overridePendingTransition(R.anim.enter_left, R.anim.exit);
                                 break;
                             case R.id.WeekOverview:
 
@@ -56,6 +59,7 @@ public class WeekOverview extends AppCompatActivity {
                             case R.id.Test:
                                 Intent intent3 = new Intent(getBaseContext(), TestingWS.class);
                                 startActivity(intent3);
+                                overridePendingTransition(R.anim.enter_right, R.anim.exit);
                                 break;
                         }
                         return false;
