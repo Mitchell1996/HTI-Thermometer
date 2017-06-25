@@ -17,12 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.widget.SeekBar;
-
 import org.thermostatapp.util.HeatingSystem;
-import org.thermostatapp.util.InvalidInputValueException;
-
-import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.ConnectException;
+import java.text.DecimalFormat;
 
 public class ThermostatActivity extends Activity {
 
@@ -96,16 +94,17 @@ public class ThermostatActivity extends Activity {
             }
         });
 
+        final DecimalFormat df = new DecimalFormat("##.#");
+        df.setRoundingMode(RoundingMode.CEILING);
+
         tempsPull.start();      //start the thread
 
         dNSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {        //night temperature
-                    //toggle is enabled
                     temp = temp_night;
                 } else {        //day temperature
-                    //toggle is disabled
                     temp = temp_day;
                 }
                 int i = (int) temp - 5;
@@ -116,12 +115,13 @@ public class ThermostatActivity extends Activity {
         bPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (temp_target < 30) {       //[5.0, 29.9]
+                if (temp_target <= 29.9) {       //[5.0, 29.9]
                     temp_target += 0.1;
                 }  else {        //[30.0]
                     Toast toast = Toast.makeText(getApplicationContext(), "You can't set the Target Temperature above 30", Toast.LENGTH_SHORT);
                     toast.show();
                 }
+                temp_target = Double.valueOf(df.format(temp_target));
                 targetTemp.setText(temp_target + " \u2103");
 
                 new Thread(new Runnable() {
@@ -139,12 +139,13 @@ public class ThermostatActivity extends Activity {
         bMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (temp_target > 5) {        //[5.1, 30.0]
+                if (temp_target >= 5.1) {        //[5.1, 30.0]
                     temp_target -= 0.1;
                 }  else {        //[5.0]
                     Toast toast = Toast.makeText(getApplicationContext(), "You can't set the Target Temperature below 5", Toast.LENGTH_SHORT);
                     toast.show();
                 }
+                temp_target = Double.valueOf(df.format(temp_target));
                 targetTemp.setText(temp_target + " \u2103");
 
                 new Thread(new Runnable() {
@@ -152,6 +153,7 @@ public class ThermostatActivity extends Activity {
                     public void run() {
                         try {
                             HeatingSystem.put("targetTemperature", String.valueOf(temp_target));
+                            temp_target = Double.parseDouble(HeatingSystem.get("targetTemperature"));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -162,7 +164,7 @@ public class ThermostatActivity extends Activity {
         bPlus2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (temp < 30) {       //[5.0, 29.9]
+                if (temp <= 29.9) {       //[5.0, 29.9]
                     if (dNSwitch.isChecked()) {     //night
                         temp_night += 0.1;
                         temp = temp_night;
@@ -176,6 +178,7 @@ public class ThermostatActivity extends Activity {
                 }
                 int i = (int) temp - 5;
                 dNSlider.setProgress(i);
+                temp = Double.valueOf(df.format(temp));
                 dNTemp.setText(temp + " \u2103");
 
                 new Thread(new Runnable() {
@@ -194,7 +197,7 @@ public class ThermostatActivity extends Activity {
         bMinus2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (temp > 5) {       //[5.1 30.0]
+                if (temp >= 5.1) {       //[5.1 30.0]
                     if (dNSwitch.isChecked()) {     //night
                         temp_night -= 0.1;
                         temp = temp_night;
@@ -208,6 +211,7 @@ public class ThermostatActivity extends Activity {
                 }
                 int i = (int) temp - 5;
                 dNSlider.setProgress(i);
+                temp = Double.valueOf(df.format(temp));
                 dNTemp.setText(temp + " \u2103");
 
                 new Thread(new Runnable() {

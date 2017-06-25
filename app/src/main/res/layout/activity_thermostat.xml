@@ -154,9 +154,9 @@
         <SeekBar
             android:id="@+id/dNSlider"
             style="@style/Widget.AppCompat.SeekBar.Discrete"
-            android:layout_alignBaseline="@+id/bMinus2"
             android:layout_width="150dp"
             android:layout_height="70dp"
+            android:layout_alignBaseline="@+id/bMinus2"
             android:layout_centerHorizontal="true"
             android:max="25"
             android:progress="3" />
@@ -166,25 +166,24 @@
             android:id="@+id/bPlus2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
             android:text="+"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="30dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true" />
+            android:textSize="30dp" />
 
         <Switch
             android:id="@+id/switch1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.08"
-            android:text="Day/Night"
-            android:textColor="@color/colorPrimaryDark"
             android:layout_alignBottom="@+id/dNSlider"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="11dp" />
+            android:layout_marginBottom="11dp"
+            android:layout_weight="0.08"
+            android:text="Day/Night"
+            android:textColor="@color/colorPrimaryDark" />
 
-        </RelativeLayout>
-
+    </RelativeLayout>
 
 
     <RelativeLayout
