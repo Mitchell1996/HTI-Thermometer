@@ -45,6 +45,9 @@ public class MondaySwitches extends AppCompatActivity {
                 findViewById(R.id.floatingAddButton);
 
         Arrays.fill(items, "empty");
+        Arrays.fill(times, "1");
+        Arrays.fill(onoff, "1");
+        Arrays.fill(whole, "0");
 
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -95,7 +98,7 @@ public class MondaySwitches extends AppCompatActivity {
 
     private void populateListView() {
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(getBaseContext(), R.layout.switch_temperature, items);
+                new ArrayAdapter<String>(getBaseContext(), R.layout.switch_temperature, whole);
 
         ListView list = (ListView) findViewById(R.id.SwitchList);
         list.setAdapter(adapter);
