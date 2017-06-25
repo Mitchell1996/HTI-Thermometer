@@ -6,16 +6,10 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/getdata"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="GET Data" />
-
-    <Button
         android:id="@+id/putdata"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PUT Data" />
+        android:text="Get Monday" />
 
     <TextView
         android:layout_width="match_parent"
@@ -31,6 +25,12 @@
         android:id="@+id/wpg3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/getdata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GET Data" />
 
     <TableLayout
         android:layout_width="match_parent"

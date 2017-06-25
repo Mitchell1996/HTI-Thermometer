@@ -13,31 +13,39 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.thermostatapp.util.HeatingSystem;
 import org.thermostatapp.util.Switch;
 import org.thermostatapp.util.WeekProgram;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MondaySwitches extends AppCompatActivity {
     String day = "Monday";
     Switch[] switches = new Switch[9];
     final String[] type = new String[1];
     String[] stuff = {"00:00", "12:00"};
-    String[] end;
 
     final String[] items = new String[11];
     final String[] times = new String[11];
     final String[] onoff = new String[11];
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mondayactivity);
+
+        HeatingSystem.BASE_ADDRESS = "http://wwwis.win.tue.nl/2id40-ws/48";
+        HeatingSystem.WEEK_PROGRAM_ADDRESS = HeatingSystem.BASE_ADDRESS + "/weekProgram";
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         FloatingActionButton fAB = (FloatingActionButton)
                 findViewById(R.id.floatingAddButton);
+
+        Arrays.fill(items, "empty");
+
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,18 +64,22 @@ public class MondaySwitches extends AppCompatActivity {
                 overridePendingTransition(R.anim.enter_up, R.anim.exit);
             }
         });
+
+        final Toast toast = Toast.makeText(getApplicationContext(), "end of try/CATCH", Toast.LENGTH_SHORT);
+        final Toast toast1 = Toast.makeText(getApplicationContext(), "end of TRY/catch", Toast.LENGTH_SHORT);
+        final String[] error = new String[1];
+
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
+                    toast1.show();
                     final WeekProgram wpg = HeatingSystem.getWeekProgram();
-                    wpg.setDefault();
-                    //wpg.data.get("Monday").set(1, new Switch("night", true, "08:30"));
-
-                    for (int i=0; i<10; i++) {
-                        switches[i] = wpg.data.get(day).get(i);
+                    //wpg.setDefault();
+                    for (int i = 0; i < 10; i++) {
+                        switches[i] = wpg.data.get("Monday").get(i);
                     }
-                    for (int i = 0; i<10; i++) {
+                    for (int i = 0; i < 10; i++) {
                         items[i] = switches[i].getType();
                         times[i] = switches[i].getTime();
                         onoff[i] = String.valueOf(switches[i].getState());
@@ -78,10 +90,7 @@ public class MondaySwitches extends AppCompatActivity {
             }
         }).start();
         populateListView();
-
     }
-
-
 
     private void populateListView() {
         ArrayAdapter<String> adapter =

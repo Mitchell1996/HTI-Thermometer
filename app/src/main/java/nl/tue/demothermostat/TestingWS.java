@@ -26,9 +26,9 @@ import java.util.ArrayList;
 public class TestingWS extends Activity {
 
     Button getdata, putdata;
-    TextView data1, data2, data3, data4, data5, data6, data7, wpgtest, wpg1, wpg2, wpg3;
+    TextView data1, data2, data3, data4, data5, data6, data7, wpg1, wpg2, wpg3;
     String date, time, dayt, nightt, cnt, tgt, wpgState;
-    Switch[] mon1 = new Switch[11];
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,12 +82,14 @@ public class TestingWS extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                final Toast toast = Toast.makeText(getApplicationContext(), "Target Temperature uploaded!", Toast.LENGTH_SHORT);
+                //final Toast toast = Toast.makeText(getApplicationContext(), "Target Temperature uploaded!", Toast.LENGTH_SHORT);
+                final Switch[] mon1 = new Switch[11];
+                final Toast toast1 = Toast.makeText(getApplicationContext(), "end of TRY/catch", Toast.LENGTH_SHORT);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            HeatingSystem.put("targetTemperature", String.valueOf(ThermostatActivity.temp_target));     //store local temp_target to server
+                            //HeatingSystem.put("targetTemperature", String.valueOf(ThermostatActivity.temp_target));     //store local temp_target to server
 
                             /* Uncomment the following parts to see how to work with the properties of the week program */
                             // Get the week program
@@ -128,9 +130,11 @@ public class TestingWS extends Activity {
                                     wpg3.setText(onoff[0]+onoff[1]+onoff[2]+onoff[3]+onoff[4]+onoff[5]+onoff[6]+onoff[7]+onoff[8]+onoff[9]);
                                 }
                             });
-                            toast.show();
+                            //toast.show();
                         } catch (Exception e) {
                             System.err.println("Error from getdata " + e);
+                            final Toast toast = Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT);
+                            toast.show();
                         }
                     }
                 }).start();
@@ -193,5 +197,4 @@ public class TestingWS extends Activity {
             }
         }).start();
     }
-
 }
