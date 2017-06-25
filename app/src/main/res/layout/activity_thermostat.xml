@@ -51,36 +51,79 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="30dp" />
 
-    <me.angrybyte.circularslider.CircularSlider
 
-        android:id="@+id/circular"
-        android:layout_width="138dp"
-        android:layout_height="129dp"
-        android:padding="10dp"
-        circular:angle="3.14"
-        circular:border_color="#505090"
-        circular:border_thickness="14dp"
-        circular:border_gradient_colors="#f05151;#FFFFFF;#FFFFFF;#FFFFFF;#4a90e2;#4a90e2;#4a90e2;#4a90e2;#f05151;#f05151;"
-        circular:thumb_size="13dp"
-        circular:thumb_color="#9932CC"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp">
 
+        <Button
+            android:id="@+id/bMinus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="-"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/dNTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/bMinus2"
+            android:layout_alignBottom="@+id/bMinus2"
+            android:layout_centerHorizontal="true"
+            android:text=" &#x2103;"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="30dp" />
+
+        <SeekBar
+            android:id="@+id/dNSlider1"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+            android:layout_alignBaseline="@+id/bMinus2"
+            android:layout_centerHorizontal="true"
+            android:max="25"
+            android:progress="3" />
+
+        <Button
+            android:id="@+id/bPlus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:text="+"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="30dp" />
+
+        <ToggleButton
+            android:id="@+id/DayNightToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dNSlider1"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/colorPrimaryDark"
+            android:textOff="@string/Day"
+            android:textOn="@string/Night" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-
-
         <TextView
             android:id="@+id/VacationMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vacation mode"
             android:layout_alignBaseline="@+id/vacationToggle"
             android:layout_alignBottom="@+id/vacationToggle"
             android:layout_alignEnd="@+id/targetTemp"
-            android:layout_marginEnd="13dp" />
+            android:layout_marginEnd="13dp"
+            android:text="Vacation mode" />
 
         <Button
             android:id="@+id/bMinus"
@@ -118,70 +161,10 @@
             android:id="@+id/vacationToggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="VacationMode"
             android:layout_below="@+id/bPlus"
-            android:layout_toEndOf="@+id/targetTemp" />
+            android:layout_toEndOf="@+id/targetTemp"
+            android:text="VacationMode" />
 
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/bMinus2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:text="-"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="30dp" />
-
-        <TextView
-            android:id="@+id/dNTemp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/bMinus2"
-            android:layout_alignBottom="@+id/bMinus2"
-            android:layout_centerHorizontal="true"
-            android:text=" &#x2103;"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="30dp" />
-
-        <SeekBar
-            android:id="@+id/dNSlider"
-            style="@style/Widget.AppCompat.SeekBar.Discrete"
-            android:layout_width="150dp"
-            android:layout_height="70dp"
-            android:layout_alignBaseline="@+id/bMinus2"
-            android:layout_centerHorizontal="true"
-            android:max="25"
-            android:progress="3" />
-
-
-        <Button
-            android:id="@+id/bPlus2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:text="+"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="30dp" />
-
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/dNSlider"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="11dp"
-            android:layout_weight="0.08"
-            android:text="Day/Night"
-            android:textColor="@color/colorPrimaryDark" />
 
     </RelativeLayout>
 
