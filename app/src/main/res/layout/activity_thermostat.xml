@@ -55,7 +55,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp">
+        android:paddingTop="20dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp">
 
         <Button
             android:id="@+id/bMinus2"
@@ -64,8 +66,9 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:text="-"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="30dp" />
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:background="@drawable/button_shape_minus"/>
 
         <TextView
             android:id="@+id/dNTemp"
@@ -96,8 +99,9 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:text="+"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="30dp" />
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:background="@drawable/button_shape_plus"/>
 
         <ToggleButton
             android:id="@+id/DayNightToggle"
@@ -105,25 +109,25 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/dNSlider1"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/colorPrimaryDark"
             android:textOff="@string/Day"
             android:textOn="@string/Night" />
 
     </RelativeLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vacation Mode"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20dp"
+        android:gravity="center_horizontal"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp">
 
-        <TextView
-            android:id="@+id/VacationMode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/vacationToggle"
-            android:layout_alignBottom="@+id/vacationToggle"
-            android:layout_alignEnd="@+id/targetTemp"
-            android:layout_marginEnd="13dp"
-            android:text="Vacation mode" />
 
         <Button
             android:id="@+id/bMinus"
@@ -132,8 +136,9 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:text="-"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="30dp" />
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:background="@drawable/button_shape_minus"/>
 
         <TextView
             android:id="@+id/targetTemp"
@@ -154,16 +159,16 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:text="+"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="30dp" />
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:background="@drawable/button_shape_plus"/>
 
         <ToggleButton
             android:id="@+id/vacationToggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/bPlus"
-            android:layout_toEndOf="@+id/targetTemp"
-            android:text="VacationMode" />
+            android:layout_below="@+id/bMinus"
+            android:layout_centerHorizontal="true" />
 
 
     </RelativeLayout>
@@ -173,14 +178,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigationBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        design:menu="@menu/menu_main"
-        android:layout_alignParentBottom="true" />
-
-</RelativeLayout>
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigationBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            design:menu="@menu/menu_main"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
 
 </LinearLayout>
