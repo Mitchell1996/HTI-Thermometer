@@ -9,10 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
-import org.thermostatapp.util.Switch;
 
 
 public class AddSwitch extends AppCompatActivity {
@@ -33,7 +33,17 @@ public class AddSwitch extends AppCompatActivity {
         final TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker);
         timePicker.setIs24HourView(true);
 
-
+        final Switch switchSwitch = (Switch) findViewById(R.id.switchSwitch);
+        switchSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    String type = "night";
+                } else {
+                    String type = "day";
+                }
+            }
+        });
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.cancelSaveBar);
@@ -48,8 +58,20 @@ public class AddSwitch extends AppCompatActivity {
                                 startActivity(intent);
                                 break;
                             case R.id.Save:
-                                Toast.makeText(getBaseContext(),
-                                        timePicker.getHour()+ ":" + timePicker.getMinute(), Toast.LENGTH_SHORT).show();
+                                String hourString;
+                                if (timePicker.getHour() < 10)
+                                    hourString = "0" + timePicker.getHour();
+                                else
+                                    hourString = "" + timePicker.getHour();
+
+                                String minuteString;
+                                if (timePicker.getMinute() < 10)
+                                    minuteString = "0" + timePicker.getMinute();
+                                else
+                                    minuteString = "" + timePicker.getMinute();
+
+                                String time = hourString + ":" + minuteString;
+                                Toast.makeText(getBaseContext(), time, Toast.LENGTH_SHORT).show();
                                 startActivity(intent);
                                 break;
                         }

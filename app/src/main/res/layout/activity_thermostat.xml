@@ -179,8 +179,6 @@
             android:layout_weight="0.08"
             android:text="Day/Night"
             android:textColor="@color/colorPrimaryDark"
-            android:textOff="@string/Day"
-            android:textOn="@string/Night"
             android:layout_alignBottom="@+id/dNSlider"
             android:layout_alignParentStart="true"
             android:layout_marginBottom="11dp" />

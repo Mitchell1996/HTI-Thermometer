@@ -54,11 +54,10 @@ public class TestingWS extends Activity {
         data5 = (TextView) findViewById(R.id.textView15);
         data6 = (TextView) findViewById(R.id.textView16);
         data7 = (TextView) findViewById(R.id.textView17);
-        wpgtest = (TextView) findViewById(R.id.wpgTest);
         wpg1 = (TextView) findViewById(R.id.wpg1);
         wpg2 = (TextView) findViewById(R.id.wpg2);
         wpg3 = (TextView) findViewById(R.id.wpg3);
-        //FIXED
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.navigationBar);
         bottomNavigationView.setSelectedItemId(R.id.Test);
