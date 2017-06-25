@@ -19,8 +19,6 @@ import java.util.Arrays;
 public class SundaySwitches extends AppCompatActivity {
     String day = "Sunday";
     Switch[] switches = new Switch[9];
-    final String[] type = new String[1];
-    String[] stuff = {"00:00", "12:00"};
     final String[] items = new String[9];
     final String[] times = new String[9];
     final String[] onoff = new String[9];
@@ -39,10 +37,10 @@ public class SundaySwitches extends AppCompatActivity {
         FloatingActionButton fAB = (FloatingActionButton)
                 findViewById(R.id.floatingAddButton);
 
-        Arrays.fill(items, "empty");
-        Arrays.fill(times, "1");
-        Arrays.fill(onoff, "1");
-        Arrays.fill(whole, "0");
+        Arrays.fill(items, "");
+        Arrays.fill(times, "");
+        Arrays.fill(onoff, "");
+        Arrays.fill(whole, "");
 
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

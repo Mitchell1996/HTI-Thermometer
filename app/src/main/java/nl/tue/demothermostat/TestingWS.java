@@ -7,7 +7,6 @@ package nl.tue.demothermostat;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -18,10 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.thermostatapp.util.*;
-import org.w3c.dom.Text;
 
 import java.net.ConnectException;
-import java.util.ArrayList;
 
 public class TestingWS extends Activity {
 
@@ -82,22 +79,12 @@ public class TestingWS extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                //final Toast toast = Toast.makeText(getApplicationContext(), "Target Temperature uploaded!", Toast.LENGTH_SHORT);
                 final Switch[] mon1 = new Switch[11];
-                final Toast toast1 = Toast.makeText(getApplicationContext(), "end of TRY/catch", Toast.LENGTH_SHORT);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            //HeatingSystem.put("targetTemperature", String.valueOf(ThermostatActivity.temp_target));     //store local temp_target to server
-
-                            /* Uncomment the following parts to see how to work with the properties of the week program */
-                            // Get the week program
                             final WeekProgram wpg = HeatingSystem.getWeekProgram();
-                            // Set the week program to default
-                            //wpg.setDefault();
-                            //wpg.data.get("Monday").set(1, new Switch("night", true, "08:30"));
-
                             final String[] items = new String[11];
                             final String[] times = new String[11];
                             final String[] onoff = new String[11];
@@ -110,18 +97,6 @@ public class TestingWS extends Activity {
                                 times[i] = mon1[i].getTime();
                                 onoff[i] = String.valueOf(mon1[i].getState());
                             }
-                            /*
-                            wpg.data.get("Monday").set(5, new Switch("day", true, "07:30"));
-                            wpg.data.get("Monday").set(1, new Switch("night", true, "08:30"));
-                            wpg.data.get("Monday").set(6, new Switch("day", true, "18:00"));
-                            wpg.data.get("Monday").set(7, new Switch("day", true, "12:00"));
-                            wpg.data.get("Monday").set(8, new Switch("day", true, "18:00"));
-                            boolean duplicates = wpg.duplicates(wpg.data.get("Monday"));
-                            System.out.println("Duplicates found "+duplicates);
-                            */
-                            //Upload the updated program
-                            //HeatingSystem.setWeekProgram(wpg);
-
                             wpg1.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -130,7 +105,6 @@ public class TestingWS extends Activity {
                                     wpg3.setText(onoff[0]+onoff[1]+onoff[2]+onoff[3]+onoff[4]+onoff[5]+onoff[6]+onoff[7]+onoff[8]+onoff[9]);
                                 }
                             });
-                            //toast.show();
                         } catch (Exception e) {
                             System.err.println("Error from getdata " + e);
                             final Toast toast = Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT);

@@ -100,7 +100,6 @@ public class ThermostatActivity extends Activity {
                 }
             }
         });
-
         final DecimalFormat df = new DecimalFormat("##.#");
         df.setRoundingMode(RoundingMode.CEILING);
 

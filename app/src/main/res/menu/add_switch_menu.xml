@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:title="Cancel"
-        android:id="@+id/Cancel" />
+        android:id="@+id/Cancel"
+        android:icon="@drawable/ic_cancel"/>
     <item android:title="Save"
-        android:id="@+id/Save" />
+        android:id="@+id/Save"
+        android:icon="@drawable/ic_save"/>
 </menu>

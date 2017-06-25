@@ -23,8 +23,6 @@ import java.util.ArrayList;
  */
 public class WeekOverview extends AppCompatActivity {
     public WeekProgram wpg;
-    ArrayList<Switch> switches;
-    String[] valid_days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
