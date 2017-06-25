@@ -21,10 +21,15 @@ import org.thermostatapp.util.WeekProgram;
 import java.util.ArrayList;
 
 public class MondaySwitches extends AppCompatActivity {
-    ArrayList<Switch> switches = new ArrayList<>();
-    static WeekProgram wpg;
     String day = "Monday";
-    String[] items;
+    Switch[] switches = new Switch[9];
+    final String[] type = new String[1];
+    String[] stuff = {"00:00", "12:00"};
+    String[] end;
+
+    final String[] items = new String[11];
+    final String[] times = new String[11];
+    final String[] onoff = new String[11];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,26 +38,6 @@ public class MondaySwitches extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         FloatingActionButton fAB = (FloatingActionButton)
                 findViewById(R.id.floatingAddButton);
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    wpg = HeatingSystem.getWeekProgram();
-                } catch (Exception e) {
-                    System.err.println("Error from getdata " + e);
-                }
-            }
-        }).start();
-
-        for (int i = 0; i < 10; i++) {
-            if (wpg.data.get(day).get(i).getState()) {       //if switch is on
-                items[i] = wpg.data.get(day).get(i).getType(); //crash?!
-            }
-        }
-
-
-        populateListView();
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,13 +56,36 @@ public class MondaySwitches extends AppCompatActivity {
                 overridePendingTransition(R.anim.enter_up, R.anim.exit);
             }
         });
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    final WeekProgram wpg = HeatingSystem.getWeekProgram();
+                    wpg.setDefault();
+                    //wpg.data.get("Monday").set(1, new Switch("night", true, "08:30"));
+
+                    for (int i=0; i<10; i++) {
+                        switches[i] = wpg.data.get(day).get(i);
+                    }
+                    for (int i = 0; i<10; i++) {
+                        items[i] = switches[i].getType();
+                        times[i] = switches[i].getTime();
+                        onoff[i] = String.valueOf(switches[i].getState());
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error from getdata " + e);
+                }
+            }
+        }).start();
+        populateListView();
+
     }
 
-    private void populateListView() {
-        String[] myItems = {};
 
+
+    private void populateListView() {
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(getBaseContext(), R.layout.switch_temperature, items);
+                new ArrayAdapter<String>(getBaseContext(), R.layout.switch_temperature, stuff);
 
         ListView list = (ListView) findViewById(R.id.SwitchList);
         list.setAdapter(adapter);

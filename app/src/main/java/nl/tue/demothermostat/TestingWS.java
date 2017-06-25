@@ -28,8 +28,7 @@ public class TestingWS extends Activity {
     Button getdata, putdata;
     TextView data1, data2, data3, data4, data5, data6, data7, wpgtest, wpg1, wpg2, wpg3;
     String date, time, dayt, nightt, cnt, tgt, wpgState;
-    WeekProgram wpgex;
-    Switch mon1;
+    Switch[] mon1 = new Switch[11];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,10 +94,20 @@ public class TestingWS extends Activity {
                             final WeekProgram wpg = HeatingSystem.getWeekProgram();
                             // Set the week program to default
                             wpg.setDefault();
+                            //wpg.data.get("Monday").set(1, new Switch("night", true, "08:30"));
 
-                            mon1 = wpgex.data.get("Monday").get(1);
-                            final String p;
-                            p = mon1.getTime();
+                            final String[] items = new String[11];
+                            final String[] times = new String[11];
+                            final String[] onoff = new String[11];
+
+                            for (int i=0; i<10; i++) {
+                                mon1[i] = wpg.data.get("Monday").get(i);
+                            }
+                            for (int i = 0; i<10; i++) {
+                                items[i] = mon1[i].getType();
+                                times[i] = mon1[i].getTime();
+                                onoff[i] = String.valueOf(mon1[i].getState());
+                            }
                             /*
                             wpg.data.get("Monday").set(5, new Switch("day", true, "07:30"));
                             wpg.data.get("Monday").set(1, new Switch("night", true, "08:30"));
@@ -111,10 +120,12 @@ public class TestingWS extends Activity {
                             //Upload the updated program
                             //HeatingSystem.setWeekProgram(wpg);
 
-                            wpgtest.post(new Runnable() {
+                            wpg1.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    wpgtest.setText(p);
+                                    wpg1.setText(items[0]+items[1]+items[2]+items[3]+items[4]+items[5]+items[6]+items[7]+items[8]+items[9]);
+                                    wpg2.setText(times[0]+times[1]+times[2]+times[3]+times[4]+times[5]+times[6]+times[7]+times[8]+times[9]);
+                                    wpg3.setText(onoff[0]+onoff[1]+onoff[2]+onoff[3]+onoff[4]+onoff[5]+onoff[6]+onoff[7]+onoff[8]+onoff[9]);
                                 }
                             });
                             toast.show();
