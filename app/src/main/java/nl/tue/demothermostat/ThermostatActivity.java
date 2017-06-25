@@ -42,7 +42,7 @@ public class ThermostatActivity extends Activity {
         currentTemp = (TextView) findViewById(R.id.currentTemp);
         targetTemp = (TextView) findViewById(R.id.targetTemp);
         dNTemp = (TextView) findViewById(R.id.dNTemp);
-        //dNSlider = (SeekBar) findViewById(R.id.dNSlider);
+        dNSlider = (SeekBar) findViewById(R.id.dNSlider);
         Button bPlus = (Button) findViewById(R.id.bPlus);       //for targetTemp
         Button bMinus = (Button) findViewById(R.id.bMinus);     //for targetTemp
         Button bPlus2 = (Button) findViewById(R.id.bPlus2);     //for day/night temp

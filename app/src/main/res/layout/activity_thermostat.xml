@@ -147,7 +147,7 @@
             android:textSize="30dp" />
 
         <SeekBar
-            android:id="@+id/dNSlider1"
+            android:id="@+id/dNSlider"
             style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="150dp"
             android:layout_height="70dp"
@@ -171,7 +171,7 @@
             android:id="@+id/DayNightToggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/dNSlider1"
+            android:layout_below="@+id/dNSlider"
             android:layout_centerHorizontal="true"
             android:textOff="@string/Day"
             android:textOn="@string/Night" />
