@@ -84,7 +84,6 @@ public class ThermostatActivity extends Activity {
                     currentTemp.post(new Runnable() {
                         @Override
                         public void run() {
-                            currentTemp.setText("Current Temperature: " + temp_current + "C");
                             if (!firstPull) {
                                 targetTemp.setText(String.valueOf(temp_target) + " \u2103");
                                 int n = (int) temp_target - 5;

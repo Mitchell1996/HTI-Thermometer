@@ -44,6 +44,7 @@ public class WeekOverview extends AppCompatActivity {
             public void run() {
                 try {
                     wpg = HeatingSystem.getWeekProgram();
+                    return;
                 } catch (ConnectException e) {
                     e.printStackTrace();
                 } catch (CorruptWeekProgramException e) {

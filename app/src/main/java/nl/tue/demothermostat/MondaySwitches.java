@@ -23,7 +23,7 @@ import java.util.Arrays;
 
 public class MondaySwitches extends AppCompatActivity {
     String day = "Monday";
-    Switch[] switches = new Switch[9];
+    Switch[] switches = new Switch[10];
     final String[] type = new String[1];
     String[] stuff = {"00:00", "12:00"};
     final String[] items = new String[11];
@@ -72,7 +72,7 @@ public class MondaySwitches extends AppCompatActivity {
             public void run() {
                 try {
                     final WeekProgram wpg = HeatingSystem.getWeekProgram();
-                    //wpg.setDefault();
+                    wpg.setDefault();
                     for (int i = 0; i < 10; i++) {
                         switches[i] = wpg.data.get("Monday").get(i);
                         toast1.show();
