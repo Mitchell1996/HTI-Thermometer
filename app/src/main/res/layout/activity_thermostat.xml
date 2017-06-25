@@ -33,14 +33,14 @@
 
 
     <TextView
+        android:id="@+id/currentTemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:paddingBottom="20dp"
         android:text=" &#x2103;"
-        android:textSize="30dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/colorPrimaryDark"
-        android:id="@+id/currentTemp"
-        android:paddingBottom="20dp"/>
+        android:textSize="30dp" />
 
     <TextView
         android:id="@+id/textView2"
@@ -54,10 +54,20 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="134dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
+
+        <SeekBar
+            android:id="@+id/tSlider"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+            android:layout_above="@+id/textView"
+            android:layout_centerHorizontal="true"
+            android:max="25"
+            android:progress="3" />
 
         <Button
             android:id="@+id/bMinus"
@@ -97,21 +107,20 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/vacationToggle"
+            android:layout_alignBottom="@+id/vacationToggle"
+            android:layout_toStartOf="@+id/vacationToggle"
             android:gravity="center_horizontal"
             android:text="Vacation Mode"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="20dp"
-            android:layout_alignBaseline="@+id/vacationToggle"
-            android:layout_alignBottom="@+id/vacationToggle"
-            android:layout_toStartOf="@+id/vacationToggle" />
+            android:textSize="20dp" />
 
         <ToggleButton
             android:id="@+id/vacationToggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/bPlus"
-            android:layout_toEndOf="@+id/targetTemp"
-            android:layout_marginTop="11dp" />
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/targetTemp" />
 
 
     </RelativeLayout>
@@ -119,9 +128,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
+        android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingLeft="10dp">
+        android:paddingTop="20dp">
 
         <Button
             android:id="@+id/bMinus2"
@@ -129,10 +138,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:background="@drawable/button_shape_minus"
             android:text="-"
             android:textColor="@color/white"
-            android:textSize="30dp"
-            android:background="@drawable/button_shape_minus"/>
+            android:textSize="30dp" />
 
         <TextView
             android:id="@+id/dNTemp"
@@ -162,10 +171,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
+            android:background="@drawable/button_shape_plus"
             android:text="+"
             android:textColor="@color/white"
-            android:textSize="30dp"
-            android:background="@drawable/button_shape_plus"/>
+            android:textSize="30dp" />
 
         <ToggleButton
             android:id="@+id/DayNightToggle"

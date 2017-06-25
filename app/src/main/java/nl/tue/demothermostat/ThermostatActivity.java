@@ -31,7 +31,7 @@ public class ThermostatActivity extends Activity {
     TextView currentTemp, targetTemp, dNTemp;
     boolean firstPull = false;
     boolean vacationMode;
-    SeekBar dNSlider;
+    SeekBar dNSlider, tSlider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class ThermostatActivity extends Activity {
         targetTemp = (TextView) findViewById(R.id.targetTemp);
         dNTemp = (TextView) findViewById(R.id.dNTemp);
         dNSlider = (SeekBar) findViewById(R.id.dNSlider);
+        tSlider = (SeekBar) findViewById(R.id.tSlider);
         Button bPlus = (Button) findViewById(R.id.bPlus);       //for targetTemp
         Button bMinus = (Button) findViewById(R.id.bMinus);     //for targetTemp
         Button bPlus2 = (Button) findViewById(R.id.bPlus2);     //for day/night temp
@@ -83,6 +84,8 @@ public class ThermostatActivity extends Activity {
                             currentTemp.setText(String.valueOf(temp_current));
                             if (!firstPull) {
                                 targetTemp.setText(String.valueOf(temp_target) + " \u2103");
+                                int n = (int) temp_target - 5;
+                                tSlider.setProgress(n);
                                 dNTemp.setText(String.valueOf(temp) + " \u2103");
                                 int i = (int) temp - 5;
                                 dNSlider.setProgress(i);
@@ -118,12 +121,14 @@ public class ThermostatActivity extends Activity {
             public void onClick(View view) {
                 if (temp_target <= 29.9) {       //[5.0, 29.9]
                     temp_target += 0.1;
-                }  else {        //[30.0]
+                } else {        //[30.0]
                     Toast toast = Toast.makeText(getApplicationContext(), "You can't set the Target Temperature above 30", Toast.LENGTH_SHORT);
                     toast.show();
                 }
                 temp_target = Double.valueOf(df.format(temp_target));
                 targetTemp.setText(temp_target + " \u2103");
+                int n = (int) temp_target - 5;
+                tSlider.setProgress(n);
 
                 new Thread(new Runnable() {
                     @Override
@@ -142,12 +147,14 @@ public class ThermostatActivity extends Activity {
             public void onClick(View view) {
                 if (temp_target >= 5.1) {        //[5.1, 30.0]
                     temp_target -= 0.1;
-                }  else {        //[5.0]
+                } else {        //[5.0]
                     Toast toast = Toast.makeText(getApplicationContext(), "You can't set the Target Temperature below 5", Toast.LENGTH_SHORT);
                     toast.show();
                 }
                 temp_target = Double.valueOf(df.format(temp_target));
                 targetTemp.setText(temp_target + " \u2103");
+                int n = (int) temp_target - 5;
+                tSlider.setProgress(n);
 
                 new Thread(new Runnable() {
                     @Override
@@ -172,7 +179,7 @@ public class ThermostatActivity extends Activity {
                         temp_day += 0.1;
                         temp = temp_day;
                     }
-                }  else {        //[30.0]
+                } else {        //[30.0]
                     Toast toast = Toast.makeText(getApplicationContext(), "You can't set the Temperature above 30", Toast.LENGTH_SHORT);
                     toast.show();
                 }
@@ -207,7 +214,7 @@ public class ThermostatActivity extends Activity {
                         temp_day -= 0.1;
                         temp = temp_day;
                     }
-                }  else {        //[5.0]
+                } else {        //[5.0]
                     Toast toast = Toast.makeText(getApplicationContext(), "You can't set the Temperature below 5", Toast.LENGTH_SHORT);
                     toast.show();
                 }
@@ -251,6 +258,31 @@ public class ThermostatActivity extends Activity {
                 }).start();
             }
         });
+        tSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                temp_target = progress + 5;
+                targetTemp.setText(temp_target + "\u2103");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            HeatingSystem.put("targetTemperature", String.valueOf(temp_target));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+            }
+        });
         dNSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -264,9 +296,11 @@ public class ThermostatActivity extends Activity {
                 temp_day = Double.valueOf(df.format(temp_day));
                 temp_night = Double.valueOf(df.format(temp_night));
             }
+
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
+
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 new Thread(new Runnable() {
