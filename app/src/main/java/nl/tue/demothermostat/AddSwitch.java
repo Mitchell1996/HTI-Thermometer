@@ -45,7 +45,7 @@ public class AddSwitch extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), WeekOverview.class);
+                Intent intent = new Intent(view.getContext(), MondaySwitches.class);
                 startActivity(intent);
             }
         });

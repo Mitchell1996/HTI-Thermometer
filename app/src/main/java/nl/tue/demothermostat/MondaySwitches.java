@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -23,7 +24,7 @@ import java.util.Arrays;
 
 public class MondaySwitches extends AppCompatActivity {
     String day = "Monday";
-    Switch[] switches = new Switch[10];
+    Switch[] switches = new Switch[9];
     final String[] type = new String[1];
     String[] stuff = {"00:00", "12:00"};
     final String[] items = new String[11];
@@ -68,8 +69,6 @@ public class MondaySwitches extends AppCompatActivity {
             }
         });
 
-        final Toast toast = Toast.makeText(getApplicationContext(), "fuck", Toast.LENGTH_SHORT);
-        final Toast toast1 = Toast.makeText(getApplicationContext(), "end of TRY/catch", Toast.LENGTH_SHORT);
 
         new Thread(new Runnable() {
             @Override
@@ -77,19 +76,17 @@ public class MondaySwitches extends AppCompatActivity {
                 try {
                     final WeekProgram wpg = HeatingSystem.getWeekProgram();
                     wpg.setDefault();
-                    for (int i = 0; i < 10; i++) {
+                    for (int i = 0; i < 9; i++) {
                         switches[i] = wpg.data.get("Monday").get(i);
                     }
-                    for (int i = 0; i < 10; i++) {
+                    for (int i = 0; i < 9; i++) {
                         times[i] = switches[i].getTime();
                         items[i] = switches[i].getType();
                         onoff[i] = String.valueOf(switches[i].getState());
-                        whole[i] = items[i] + " " + times[i] + " "  + onoff[i];
+                        whole[i] = "Type: " + items[i] + ", Time: " + times[i] + ", On: "  + onoff[i];
                     }
-                    toast1.show();
                 } catch (Exception e) {
                     System.err.println("Error from getdata " + e);
-                    toast.show();
                 }
             }
         }).start();
@@ -102,5 +99,12 @@ public class MondaySwitches extends AppCompatActivity {
 
         ListView list = (ListView) findViewById(R.id.SwitchList);
         list.setAdapter(adapter);
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                
+                return true;
+            }
+        });
     }
 }
