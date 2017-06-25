@@ -95,7 +95,7 @@ public class TestingWS extends Activity {
                             // Get the week program
                             final WeekProgram wpg = HeatingSystem.getWeekProgram();
                             // Set the week program to default
-                            wpg.setDefault();
+                            //wpg.setDefault();
                             //wpg.data.get("Monday").set(1, new Switch("night", true, "08:30"));
 
                             final String[] items = new String[11];

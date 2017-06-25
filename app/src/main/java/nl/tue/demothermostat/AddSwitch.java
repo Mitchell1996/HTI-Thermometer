@@ -10,22 +10,35 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.widget.ToggleButton;
+
+import org.thermostatapp.util.CorruptWeekProgramException;
+import org.thermostatapp.util.HeatingSystem;
+import org.thermostatapp.util.Switch;
+import org.thermostatapp.util.WeekProgram;
+
+import java.net.ConnectException;
+import java.util.Arrays;
 
 
 public class AddSwitch extends AppCompatActivity {
-    String type;
+    String type = "day";
+    String day = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_switch);
 
+        HeatingSystem.BASE_ADDRESS = "http://wwwis.win.tue.nl/2id40-ws/48";
+        HeatingSystem.WEEK_PROGRAM_ADDRESS = HeatingSystem.BASE_ADDRESS + "/weekProgram";
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            String day = extras.getString("day");
+            day = extras.getString("day");
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -40,10 +53,9 @@ public class AddSwitch extends AppCompatActivity {
         final TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker);
         timePicker.setIs24HourView(true);
 
-        
 
-        final Switch switchSwitch = (Switch) findViewById(R.id.switchSwitch);
-        switchSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        ToggleButton toggleDN = (ToggleButton) findViewById(R.id.toggleDN);
+        toggleDN.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -56,6 +68,23 @@ public class AddSwitch extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.cancelSaveBar);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    final WeekProgram wpg = HeatingSystem.getWeekProgram();
+                    final Switch[] switches = new Switch[10];
+                    for (int i = 0; i < 10; i++) {
+                        switches[i] = wpg.data.get(day).get(i);
+                    }
+                } catch (CorruptWeekProgramException e) {
+                    e.printStackTrace();
+                } catch (ConnectException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -79,9 +108,34 @@ public class AddSwitch extends AppCompatActivity {
                                 else
                                     minuteString = "" + timePicker.getMinute();
 
-                                String time = hourString + ":" + minuteString;
+                                final String time = hourString + ":" + minuteString;
                                 Toast.makeText(getBaseContext(), time, Toast.LENGTH_SHORT).show();
-                                intent.putExtra("type", type);
+
+                                new Thread(new Runnable() {
+                                    WeekProgram wpg;
+                                    Switch[] switches = new Switch[10];
+
+                                    final Toast toast = Toast.makeText(getApplicationContext(), "Target Temperature uploaded!", Toast.LENGTH_SHORT);
+
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            wpg = HeatingSystem.getWeekProgram();
+                                        } catch (ConnectException e) {
+                                            e.printStackTrace();
+                                        } catch (CorruptWeekProgramException e) {
+                                            e.printStackTrace();
+                                        }
+                                        for (int i = 0; i < 10; i++) {
+                                            switches[i] = wpg.data.get(day).get(i);
+                                            if (!switches[i].getState()) {      //if disabled
+                                                wpg.data.get(day).set(i, new Switch(type, true, time));
+                                                i = 10;
+                                                toast.show();
+                                            }
+                                        }
+                                    }
+                                }).start();
                                 startActivity(intent);
                                 break;
                         }
