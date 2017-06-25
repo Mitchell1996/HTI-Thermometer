@@ -21,9 +21,10 @@ import org.thermostatapp.util.WeekProgram;
 import java.util.ArrayList;
 
 public class MondaySwitches extends AppCompatActivity {
-    ArrayList<Switch> switches;
-    WeekProgram wpg;
+    ArrayList<Switch> switches = new ArrayList<>();
+    static WeekProgram wpg;
     String day = "Monday";
+    String[] items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,18 +45,11 @@ public class MondaySwitches extends AppCompatActivity {
             }
         }).start();
 
-        /*Get all switches from this day and store in ArrayList switches
-        assert wpg != null;
         for (int i = 0; i < 10; i++) {
-            switches.add(wpg.data.get(day).get(i));
-        }
-
-        for (int i = 0; i < 10; i++) {
-            if (switches.get(i).getState()) {       //if switch is on
-                switches.get(i).getType();
-                switches.get(i).getTime();
+            if (wpg.data.get(day).get(i).getState()) {       //if switch is on
+                items[i] = wpg.data.get(day).get(i).getType(); //crash?!
             }
-        } */
+        }
 
 
         populateListView();
@@ -83,7 +77,7 @@ public class MondaySwitches extends AppCompatActivity {
         String[] myItems = {};
 
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(getBaseContext(), R.layout.switch_temperature, myItems);
+                new ArrayAdapter<String>(getBaseContext(), R.layout.switch_temperature, items);
 
         ListView list = (ListView) findViewById(R.id.SwitchList);
         list.setAdapter(adapter);
