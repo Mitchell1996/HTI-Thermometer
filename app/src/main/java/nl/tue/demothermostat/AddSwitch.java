@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -39,6 +40,7 @@ public class AddSwitch extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             day = extras.getString("day");
+           // Log.d("Day?", day);
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -129,8 +131,12 @@ public class AddSwitch extends AppCompatActivity {
                                             switches[i] = wpg.data.get(day).get(i);
                                             if (!switches[i].getState()) {      //if disabled
                                                 wpg.data.get(day).set(i, new Switch(type, true, time));
-                                                i = 10;
+
+                                               // Log.d("all things", type + "  : " + time);
                                                 toast.show();
+
+                                                HeatingSystem.setWeekProgram(wpg);
+                                                i = 10;
                                             }
                                         }
                                     }

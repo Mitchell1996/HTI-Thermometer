@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.content.Intent;
 import android.os.Bundle;
@@ -74,8 +75,8 @@ public class MondaySwitches extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    final WeekProgram wpg = HeatingSystem.getWeekProgram();
-                    wpg.setDefault();
+                    WeekProgram wpg = HeatingSystem.getWeekProgram();
+                    //wpg.setDefault();
                     for (int i = 0; i < 9; i++) {
                         switches[i] = wpg.data.get("Monday").get(i);
                     }
@@ -83,7 +84,8 @@ public class MondaySwitches extends AppCompatActivity {
                         times[i] = switches[i].getTime();
                         items[i] = switches[i].getType();
                         onoff[i] = String.valueOf(switches[i].getState());
-                        whole[i] = "Type: " + items[i] + ", Time: " + times[i] + ", On: "  + onoff[i];
+                        whole[i] = "Type: " + items[i] + ", Time: " + times[i] + ", On: " + onoff[i];
+                        Log.d("everything", switches[i].toString());
                     }
                 } catch (Exception e) {
                     System.err.println("Error from getdata " + e);
@@ -102,7 +104,6 @@ public class MondaySwitches extends AppCompatActivity {
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                
                 return true;
             }
         });
