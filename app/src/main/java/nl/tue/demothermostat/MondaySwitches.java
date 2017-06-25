@@ -85,7 +85,7 @@ public class MondaySwitches extends AppCompatActivity {
 
     private void populateListView() {
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(getBaseContext(), R.layout.switch_temperature, stuff);
+                new ArrayAdapter<String>(getBaseContext(), R.layout.switch_temperature, items);
 
         ListView list = (ListView) findViewById(R.id.SwitchList);
         list.setAdapter(adapter);

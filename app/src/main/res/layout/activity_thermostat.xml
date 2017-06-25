@@ -55,6 +55,70 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+
+        <Button
+            android:id="@+id/bMinus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/button_shape_minus"
+            android:text="-"
+            android:textColor="@color/white"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/targetTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/bMinus"
+            android:layout_alignBottom="@+id/bMinus"
+            android:layout_centerHorizontal="true"
+            android:text=" &#x2103;"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="30dp" />
+
+        <Button
+            android:id="@+id/bPlus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/button_shape_plus"
+            android:text="+"
+            android:textColor="@color/white"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Vacation Mode"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp"
+            android:layout_alignBaseline="@+id/vacationToggle"
+            android:layout_alignBottom="@+id/vacationToggle"
+            android:layout_toStartOf="@+id/vacationToggle" />
+
+        <ToggleButton
+            android:id="@+id/vacationToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bPlus"
+            android:layout_toEndOf="@+id/targetTemp"
+            android:layout_marginTop="11dp" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:paddingTop="20dp"
         android:paddingRight="10dp"
         android:paddingLeft="10dp">
@@ -111,65 +175,6 @@
             android:layout_centerHorizontal="true"
             android:textOff="@string/Day"
             android:textOn="@string/Night" />
-
-    </RelativeLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Vacation Mode"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="20dp"
-        android:gravity="center_horizontal"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp">
-
-
-        <Button
-            android:id="@+id/bMinus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:text="-"
-            android:textColor="@color/white"
-            android:textSize="30dp"
-            android:background="@drawable/button_shape_minus"/>
-
-        <TextView
-            android:id="@+id/targetTemp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/bMinus"
-            android:layout_alignBottom="@+id/bMinus"
-            android:layout_centerHorizontal="true"
-            android:text=" &#x2103;"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="30dp" />
-
-        <Button
-            android:id="@+id/bPlus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:text="+"
-            android:textColor="@color/white"
-            android:textSize="30dp"
-            android:background="@drawable/button_shape_plus"/>
-
-        <ToggleButton
-            android:id="@+id/vacationToggle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/bMinus"
-            android:layout_centerHorizontal="true" />
-
 
     </RelativeLayout>
 

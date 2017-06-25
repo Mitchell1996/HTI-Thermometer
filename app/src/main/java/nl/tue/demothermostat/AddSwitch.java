@@ -40,6 +40,8 @@ public class AddSwitch extends AppCompatActivity {
         final TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker);
         timePicker.setIs24HourView(true);
 
+        
+
         final Switch switchSwitch = (Switch) findViewById(R.id.switchSwitch);
         switchSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
