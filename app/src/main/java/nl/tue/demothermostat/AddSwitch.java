@@ -45,8 +45,7 @@ public class AddSwitch extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), MondaySwitches.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -93,7 +92,7 @@ public class AddSwitch extends AppCompatActivity {
                         Intent intent = new Intent(getBaseContext(), MondaySwitches.class);
                         switch (item.getItemId()) {
                             case R.id.Cancel:
-                                startActivity(intent);
+                                finish();
                                 break;
                             case R.id.Save:
                                 String hourString;

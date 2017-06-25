@@ -62,6 +62,60 @@ public class WeekOverview extends AppCompatActivity {
             }
         });
 
+        tuesday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), TuesdaySwitches.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter_up, R.anim.exit);
+            }
+        });
+
+        wednesday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), WednesdaySwitches.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter_up, R.anim.exit);
+            }
+        });
+
+        thursday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ThursdaySwitches.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter_up, R.anim.exit);
+            }
+        });
+
+        friday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), FridaySwitches.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter_up, R.anim.exit);
+            }
+        });
+
+        saturday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), SaturdaySwitches.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter_up, R.anim.exit);
+            }
+        });
+
+        sunday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), SundaySwitches.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter_up, R.anim.exit);
+            }
+        });
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.navigationBar);
         bottomNavigationView.setSelectedItemId(R.id.WeekOverview);

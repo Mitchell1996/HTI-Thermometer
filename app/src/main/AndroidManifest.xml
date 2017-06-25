@@ -33,6 +33,30 @@
             android:label="Monday">
         </activity>
 
+        <activity android:name=".TuesdaySwitches"
+            android:label="Monday">
+        </activity>
+
+        <activity android:name=".WednesdaySwitches"
+            android:label="Monday">
+        </activity>
+
+        <activity android:name=".ThursdaySwitches"
+            android:label="Monday">
+        </activity>
+
+        <activity android:name=".FridaySwitches"
+            android:label="Monday">
+        </activity>
+
+        <activity android:name=".SaturdaySwitches"
+            android:label="Monday">
+        </activity>
+
+        <activity android:name=".SundaySwitches"
+            android:label="Monday">
+        </activity>
+
         <activity android:name=".AddSwitch"
             android:label="Add Switch"/>
 

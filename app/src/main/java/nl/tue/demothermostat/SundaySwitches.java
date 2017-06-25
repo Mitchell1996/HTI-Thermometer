@@ -2,11 +2,6 @@ package nl.tue.demothermostat;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,7 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.thermostatapp.util.HeatingSystem;
 import org.thermostatapp.util.Switch;
@@ -22,8 +16,8 @@ import org.thermostatapp.util.WeekProgram;
 
 import java.util.Arrays;
 
-public class MondaySwitches extends AppCompatActivity {
-    String day = "Monday";
+public class SundaySwitches extends AppCompatActivity {
+    String day = "Sunday";
     Switch[] switches = new Switch[9];
     final String[] type = new String[1];
     String[] stuff = {"00:00", "12:00"};
@@ -36,7 +30,7 @@ public class MondaySwitches extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mondayactivity);
+        setContentView(R.layout.sundayactivity);
 
         HeatingSystem.BASE_ADDRESS = "http://wwwis.win.tue.nl/2id40-ws/48";
         HeatingSystem.WEEK_PROGRAM_ADDRESS = HeatingSystem.BASE_ADDRESS + "/weekProgram";
