@@ -29,6 +29,7 @@ public class MondaySwitches extends AppCompatActivity {
     final String[] items = new String[11];
     final String[] times = new String[11];
     final String[] onoff = new String[11];
+    final String[] whole = new String[11];
 
 
     @Override
@@ -75,13 +76,14 @@ public class MondaySwitches extends AppCompatActivity {
                     wpg.setDefault();
                     for (int i = 0; i < 10; i++) {
                         switches[i] = wpg.data.get("Monday").get(i);
-                        toast1.show();
                     }
                     for (int i = 0; i < 10; i++) {
-                        items[i] = switches[i].getType();
                         times[i] = switches[i].getTime();
+                        items[i] = switches[i].getType();
                         onoff[i] = String.valueOf(switches[i].getState());
+                        whole[i] = items[i] + " " + times[i] + " "  + onoff[i];
                     }
+                    toast1.show();
                 } catch (Exception e) {
                     System.err.println("Error from getdata " + e);
                     toast.show();
