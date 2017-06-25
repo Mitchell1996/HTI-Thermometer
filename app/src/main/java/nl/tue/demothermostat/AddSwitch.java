@@ -16,10 +16,17 @@ import android.widget.Toast;
 
 
 public class AddSwitch extends AppCompatActivity {
+    String type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_switch);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String day = extras.getString("day");
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -38,9 +45,9 @@ public class AddSwitch extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    String type = "night";
+                    type = "night";
                 } else {
-                    String type = "day";
+                    type = "day";
                 }
             }
         });
@@ -72,6 +79,7 @@ public class AddSwitch extends AppCompatActivity {
 
                                 String time = hourString + ":" + minuteString;
                                 Toast.makeText(getBaseContext(), time, Toast.LENGTH_SHORT).show();
+                                intent.putExtra("type", type);
                                 startActivity(intent);
                                 break;
                         }

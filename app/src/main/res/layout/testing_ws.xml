@@ -18,8 +18,8 @@
         android:text="PUT Data" />
 
     <TextView
-        android:id="@+id/wpg1"
         android:layout_width="match_parent"
+        android:id="@+id/wpg1"
         android:layout_height="wrap_content" />
 
     <TextView

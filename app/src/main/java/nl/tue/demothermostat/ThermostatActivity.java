@@ -21,6 +21,7 @@ import android.widget.SeekBar;
 import org.thermostatapp.util.HeatingSystem;
 import org.thermostatapp.util.InvalidInputValueException;
 
+import java.math.BigDecimal;
 import java.net.ConnectException;
 
 public class ThermostatActivity extends Activity {
@@ -115,11 +116,9 @@ public class ThermostatActivity extends Activity {
         bPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (temp_target <= 29) {       //[5.0, 29.0]
-                    temp_target++;
-                } else if (temp_target < 30) {     //[29.1, 29.9]
-                    temp_target = 30;
-                } else {        //[30.0]
+                if (temp_target < 30) {       //[5.0, 29.9]
+                    temp_target += 0.1;
+                }  else {        //[30.0]
                     Toast toast = Toast.makeText(getApplicationContext(), "You can't set the Target Temperature above 30", Toast.LENGTH_SHORT);
                     toast.show();
                 }
@@ -140,11 +139,9 @@ public class ThermostatActivity extends Activity {
         bMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (temp_target >= 6) {        //[6.0, 30.0]
-                    temp_target--;
-                } else if (temp_target > 5) {      //[5.1, 5,9]
-                    temp_target = 5;
-                } else {        //[5.0]
+                if (temp_target > 5) {        //[5.1, 30.0]
+                    temp_target -= 0.1;
+                }  else {        //[5.0]
                     Toast toast = Toast.makeText(getApplicationContext(), "You can't set the Target Temperature below 5", Toast.LENGTH_SHORT);
                     toast.show();
                 }
@@ -165,23 +162,15 @@ public class ThermostatActivity extends Activity {
         bPlus2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (temp <= 29) {       //[5.0, 29.0]
+                if (temp < 30) {       //[5.0, 29.9]
                     if (dNSwitch.isChecked()) {     //night
-                        temp_night++;
+                        temp_night += 0.1;
                         temp = temp_night;
                     } else {        //day
-                        temp_day++;
+                        temp_day += 0.1;
                         temp = temp_day;
                     }
-                } else if (temp < 30) {     //[29.1, 29.9]
-                    if (dNSwitch.isChecked()) {     //night
-                        temp_night = 30;
-                        temp = temp_night;
-                    } else {        //day
-                        temp_day = 30;
-                        temp = temp_day;
-                    }
-                } else {        //[30.0]
+                }  else {        //[30.0]
                     Toast toast = Toast.makeText(getApplicationContext(), "You can't set the Temperature above 30", Toast.LENGTH_SHORT);
                     toast.show();
                 }
@@ -205,23 +194,15 @@ public class ThermostatActivity extends Activity {
         bMinus2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (temp >= 6) {       //[6.0, 30.0]
+                if (temp > 5) {       //[5.1 30.0]
                     if (dNSwitch.isChecked()) {     //night
-                        temp_night--;
+                        temp_night -= 0.1;
                         temp = temp_night;
                     } else {        //day
-                        temp_day--;
+                        temp_day -= 0.1;
                         temp = temp_day;
                     }
-                } else if (temp > 5) {     //[5.1, 5.9]
-                    if (dNSwitch.isChecked()) {     //night
-                        temp_night = 5;
-                        temp = temp_night;
-                    } else {        //day
-                        temp_day = 5;
-                        temp = temp_day;
-                    }
-                } else {        //[5.0]
+                }  else {        //[5.0]
                     Toast toast = Toast.makeText(getApplicationContext(), "You can't set the Temperature below 5", Toast.LENGTH_SHORT);
                     toast.show();
                 }

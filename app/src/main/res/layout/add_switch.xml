@@ -40,14 +40,14 @@
         android:layout_height="wrap_content">
 
         <android.support.design.widget.BottomNavigationView
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:background="@color/colorPrimary"
             android:id="@+id/cancelSaveBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
-            app:menu="@menu/add_switch_menu"
+            android:background="@color/colorPrimary"
             app:itemTextColor="@color/white"
-            android:layout_alignParentBottom="true"/>
+            app:menu="@menu/add_switch_menu" />
     </RelativeLayout>
 
 

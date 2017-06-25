@@ -10,28 +10,47 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import org.thermostatapp.util.CorruptWeekProgramException;
+import org.thermostatapp.util.HeatingSystem;
 import org.thermostatapp.util.WeekProgram;
+
+import java.net.ConnectException;
 
 /**
  * Created by nstash on 06/05/15.
  */
 public class WeekOverview extends AppCompatActivity {
+    public WeekProgram wpg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.week_overview);
 
-        Button monday = (Button)findViewById(R.id.Monday);
-        Button tuesday = (Button)findViewById(R.id.Tuesday);
-        Button wednesday = (Button)findViewById(R.id.Wednesday);
-        Button thursday = (Button)findViewById(R.id.Thursday);
-        Button friday = (Button)findViewById(R.id.Friday);
-        Button saturday = (Button)findViewById(R.id.Saturday);
-        Button sunday = (Button)findViewById(R.id.Sunday);
+        Button monday = (Button) findViewById(R.id.Monday);
+        Button tuesday = (Button) findViewById(R.id.Tuesday);
+        Button wednesday = (Button) findViewById(R.id.Wednesday);
+        Button thursday = (Button) findViewById(R.id.Thursday);
+        Button friday = (Button) findViewById(R.id.Friday);
+        Button saturday = (Button) findViewById(R.id.Saturday);
+        Button sunday = (Button) findViewById(R.id.Sunday);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    wpg = HeatingSystem.getWeekProgram();
+                } catch (ConnectException e) {
+                    e.printStackTrace();
+                } catch (CorruptWeekProgramException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
         monday.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View view) {
+            public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), MondaySwitches.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter_up, R.anim.exit);
