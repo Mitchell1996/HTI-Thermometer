@@ -11,6 +11,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import org.thermostatapp.util.HeatingSystem;
 import org.thermostatapp.util.Switch;
@@ -56,6 +58,8 @@ public class MondaySwitches extends AppCompatActivity {
         } */
 
 
+        populateListView();
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,5 +77,15 @@ public class MondaySwitches extends AppCompatActivity {
                 overridePendingTransition(R.anim.enter_up, R.anim.exit);
             }
         });
+    }
+
+    private void populateListView() {
+        String[] myItems = {};
+
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(getBaseContext(), R.layout.switch_temperature, myItems);
+
+        ListView list = (ListView) findViewById(R.id.SwitchList);
+        list.setAdapter(adapter);
     }
 }
