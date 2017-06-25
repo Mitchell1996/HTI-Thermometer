@@ -26,7 +26,6 @@ public class MondaySwitches extends AppCompatActivity {
     Switch[] switches = new Switch[9];
     final String[] type = new String[1];
     String[] stuff = {"00:00", "12:00"};
-
     final String[] items = new String[11];
     final String[] times = new String[11];
     final String[] onoff = new String[11];
@@ -65,19 +64,18 @@ public class MondaySwitches extends AppCompatActivity {
             }
         });
 
-        final Toast toast = Toast.makeText(getApplicationContext(), "end of try/CATCH", Toast.LENGTH_SHORT);
+        final Toast toast = Toast.makeText(getApplicationContext(), "fuck", Toast.LENGTH_SHORT);
         final Toast toast1 = Toast.makeText(getApplicationContext(), "end of TRY/catch", Toast.LENGTH_SHORT);
-        final String[] error = new String[1];
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    toast1.show();
                     final WeekProgram wpg = HeatingSystem.getWeekProgram();
                     //wpg.setDefault();
                     for (int i = 0; i < 10; i++) {
                         switches[i] = wpg.data.get("Monday").get(i);
+                        toast1.show();
                     }
                     for (int i = 0; i < 10; i++) {
                         items[i] = switches[i].getType();
@@ -86,6 +84,7 @@ public class MondaySwitches extends AppCompatActivity {
                     }
                 } catch (Exception e) {
                     System.err.println("Error from getdata " + e);
+                    toast.show();
                 }
             }
         }).start();

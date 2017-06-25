@@ -1,6 +1,5 @@
 /**
  * @author HTI students, Spring 2013, adjusted by N.Stash
- *
  */
 package org.thermostatapp.util;
 
@@ -13,8 +12,8 @@ public class WeekProgram {
     corresponding set of switches */
     public Map<String, ArrayList<Switch>> data = new HashMap<String, ArrayList<Switch>>();
     private int[] nr_switches_active;
-    public static String[] valid_days = { "Monday", "Tuesday", "Wednesday",
-            "Thursday", "Friday", "Saturday", "Sunday" };
+    public static String[] valid_days = {"Monday", "Tuesday", "Wednesday",
+            "Thursday", "Friday", "Saturday", "Sunday"};
 
     /**
      * Constructor
@@ -43,7 +42,7 @@ public class WeekProgram {
             this.data.get(day).add(new Switch("day", false, "00:00"));
             this.data.get(day).add(new Switch("day", false, "00:00"));
         }
-		/* Create the default switches settings*/
+        /* Create the default switches settings*/
         set_durations();
     }
 
@@ -84,11 +83,11 @@ public class WeekProgram {
 
     public boolean duplicates(ArrayList<Switch> switches) {
         boolean duplicatesFound = false;
-        for (int i = 0; i < (switches.size() - 2) &&!duplicatesFound ; i++) {
-            for (int j = i+1; j < switches.size() - 1; j++) {
-                if ( switches.get(i).getState() && switches.get(j).getState() &&
+        for (int i = 0; i < (switches.size() - 2) && !duplicatesFound; i++) {
+            for (int j = i + 1; j < switches.size() - 1; j++) {
+                if (switches.get(i).getState() && switches.get(j).getState() &&
                         switches.get(i).getType().equals(switches.get(j).getType()) &&
-                        switches.get(i).getTime().equals(switches.get(j).getTime()) ) {
+                        switches.get(i).getTime().equals(switches.get(j).getTime())) {
                     duplicatesFound = true;
                     break;
                 }
@@ -166,123 +165,132 @@ public class WeekProgram {
         set_durations();
     }
 
-/*
+    /*
 
-    public int get_nr_switches_active(int i) {
-        return this.nr_switches_active[i];
-    }
+        public int get_nr_switches_active(int i) {
+            return this.nr_switches_active[i];
+        }
 
-    public boolean AddSwitch(int start_time, int end_time, String type,
-                             String day) {
-        int selected_day = 0;
-        for (int i = 0; i < valid_days.length; i++)
-            if (day == valid_days[i])
-                selected_day = i;
+        public boolean AddSwitch(int start_time, int end_time, String type,
+                                 String day) {
+            int selected_day = 0;
+            for (int i = 0; i < valid_days.length; i++)
+                if (day == valid_days[i])
+                    selected_day = i;
 
-        ArrayList<Switch> new_switches = new ArrayList<Switch>();
+            ArrayList<Switch> new_switches = new ArrayList<Switch>();
 
-        for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 10; i++) {
 
-            if (data.get(day).get(i).getTime_Int() < start_time
-                    && data.get(day).get(i).getState())
-                new_switches.add(data.get(day).get(i));
+                if (data.get(day).get(i).getTime_Int() < start_time
+                        && data.get(day).get(i).getState())
+                    new_switches.add(data.get(day).get(i));
+                else {
+                    new_switches.add(new Switch(type, true,
+                            int_time_to_string(start_time)));
+                    if (type == "day")
+                        new_switches.add(new Switch("night", true,
+                                int_time_to_string(end_time)));
+                    else
+                        new_switches.add(new Switch("day", true,
+                                int_time_to_string(end_time)));
+
+                    i = 10;
+                }
+            }
+            for (int i = 0; i < this.nr_switches_active[selected_day]; i++) {
+                if (data.get(day).get(i).getTime_Int() > end_time)
+                    new_switches.add(data.get(day).get(i));
+            }
+            check_duplicates(new_switches);
+            int bu = nr_switches_active[selected_day];
+            nr_switches_active[selected_day] = new_switches.size();
+            if (nr_switches_active[selected_day] <= 10)
+                for (int i = 0; i < 10 - nr_switches_active[selected_day]; i++) {
+                    if (data.get(day).get(data.get(day).size() - 2).getType()
+                            .equalsIgnoreCase("day"))
+                        new_switches.add(new Switch("night", false, "23:00"));
+                    else
+                        new_switches.add(new Switch("day", false, "23:00"));
+                }
+
             else {
-                new_switches.add(new Switch(type, true,
-                        int_time_to_string(start_time)));
-                if (type == "day")
-                    new_switches.add(new Switch("night", true,
-                            int_time_to_string(end_time)));
-                else
-                    new_switches.add(new Switch("day", true,
-                            int_time_to_string(end_time)));
-
-                i = 10;
+                nr_switches_active[selected_day] = bu;
+                return false;
             }
-        }
-        for (int i = 0; i < this.nr_switches_active[selected_day]; i++) {
-            if (data.get(day).get(i).getTime_Int() > end_time)
-                new_switches.add(data.get(day).get(i));
-        }
-        check_duplicates(new_switches);
-        int bu = nr_switches_active[selected_day];
-        nr_switches_active[selected_day] = new_switches.size();
-        if (nr_switches_active[selected_day] <= 10)
-            for (int i = 0; i < 10 - nr_switches_active[selected_day]; i++) {
-                if (data.get(day).get(data.get(day).size() - 2).getType()
-                        .equalsIgnoreCase("day"))
-                    new_switches.add(new Switch("night", false, "23:00"));
-                else
-                    new_switches.add(new Switch("day", false, "23:00"));
+            while (new_switches.size() != 10)
+                new_switches.remove(new_switches.size() - 1);
+            check_duplicates(new_switches);
+            int count_active_days = 0;
+            int day_to_night = 0;
+            int night_to_day = 0;
+            while (count_active_days < 10
+                    && new_switches.get(count_active_days).getState()) {
+                if (count_active_days != 0) {
+                    if (new_switches.get(count_active_days).getType() == "day")
+                        day_to_night++;
+                    else
+                        night_to_day++;
+                }
+                count_active_days++;
             }
-
-        else {
-            nr_switches_active[selected_day] = bu;
+            if (count_active_days <= 10 && day_to_night <= 5 && night_to_day <= 5) {
+                nr_switches_active[selected_day] = count_active_days;
+                data.put(day, new_switches);
+                set_durations();
+                return true;
+            }
             return false;
         }
-        while (new_switches.size() != 10)
-            new_switches.remove(new_switches.size() - 1);
-        check_duplicates(new_switches);
-        int count_active_days = 0;
-        int day_to_night = 0;
-        int night_to_day = 0;
-        while (count_active_days < 10
-                && new_switches.get(count_active_days).getState()) {
-            if (count_active_days != 0) {
-                if (new_switches.get(count_active_days).getType() == "day")
-                    day_to_night++;
-                else
-                    night_to_day++;
+
+        public void RemoveFirstSwitch(String day) {
+            for (int i = 0; i < 9; i++) {
+                data.get(day).set(i, data.get(day).get(i + 1));
             }
-            count_active_days++;
-        }
-        if (count_active_days <= 10 && day_to_night <= 5 && night_to_day <= 5) {
-            nr_switches_active[selected_day] = count_active_days;
-            data.put(day, new_switches);
+            if (data.get(day).get(9).getType().equalsIgnoreCase("day"))
+                data.get(day).set(data.get(day).size() - 1,
+                        new Switch("night", false, "23:00"));
+            else
+                data.get(day).set(data.get(day).size() - 1,
+                        new Switch("day", false, "23:00"));
+            data.get(day).set(0,
+                    new Switch(data.get(day).get(0).getType(), true, "00:00"));
             set_durations();
-            return true;
         }
-        return false;
-    }
 
-    public void RemoveFirstSwitch(String day) {
-        for (int i = 0; i < 9; i++) {
-            data.get(day).set(i, data.get(day).get(i + 1));
+        public void RemoveSwitch(int i, String day) {
+            for (int j = i; j < data.get(day).size() - 1; j++) {
+                data.get(day).set(j, data.get(day).get(j + 1));
+            }
+            if (data.get(day).get(data.get(day).size() - 2).getType()
+                    .equalsIgnoreCase("day"))
+                data.get(day).set(data.get(day).size() - 1,
+                        new Switch("night", false, "23:00"));
+            else
+                data.get(day).set(data.get(day).size() - 1,
+                        new Switch("day", false, "23:00"));
+            check_duplicates(data.get(day));
+            set_durations();
         }
-        if (data.get(day).get(9).getType().equalsIgnoreCase("day"))
-            data.get(day).set(data.get(day).size() - 1,
-                    new Switch("night", false, "23:00"));
-        else
-            data.get(day).set(data.get(day).size() - 1,
-                    new Switch("day", false, "23:00"));
-        data.get(day).set(0,
-                new Switch(data.get(day).get(0).getType(), true, "00:00"));
-        set_durations();
-    }
 
-    public void RemoveSwitch(int i, String day) {
-        for (int j = i; j < data.get(day).size() - 1; j++) {
-            data.get(day).set(j, data.get(day).get(j + 1));
+        private String int_time_to_string(int time_var) {
+            String hours = Integer.toString(time_var / 100);
+            String mins = Integer.toString(time_var - time_var / 100 * 100);
+            if (time_var < 1000)
+                hours = "0" + hours;
+            if (time_var - time_var / 100 * 100 < 10)
+                mins = "0" + mins;
+
+            return hours + ":" + mins;
         }
-        if (data.get(day).get(data.get(day).size() - 2).getType()
-                .equalsIgnoreCase("day"))
-            data.get(day).set(data.get(day).size() - 1,
-                    new Switch("night", false, "23:00"));
-        else
-            data.get(day).set(data.get(day).size() - 1,
-                    new Switch("day", false, "23:00"));
-        check_duplicates(data.get(day));
-        set_durations();
-    }
+    */
 
-    private String int_time_to_string(int time_var) {
-        String hours = Integer.toString(time_var / 100);
-        String mins = Integer.toString(time_var - time_var / 100 * 100);
-        if (time_var < 1000)
-            hours = "0" + hours;
-        if (time_var - time_var / 100 * 100 < 10)
-            mins = "0" + mins;
+    public ArrayList<Switch> getSwitchArrayL(String day) {
+        //AddSwitch(700, 1200, "day", "Tuesday");
+        //AddSwitch(1300, 1400, "night", "Tuesday");
+        ArrayList<Switch> switches = this.data.get(day);
 
-        return hours + ":" + mins;
+
+        return switches;
     }
-*/
 }

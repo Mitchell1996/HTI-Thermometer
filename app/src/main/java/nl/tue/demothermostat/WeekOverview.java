@@ -12,15 +12,19 @@ import android.widget.Button;
 
 import org.thermostatapp.util.CorruptWeekProgramException;
 import org.thermostatapp.util.HeatingSystem;
+import org.thermostatapp.util.Switch;
 import org.thermostatapp.util.WeekProgram;
 
 import java.net.ConnectException;
+import java.util.ArrayList;
 
 /**
  * Created by nstash on 06/05/15.
  */
 public class WeekOverview extends AppCompatActivity {
     public WeekProgram wpg;
+    ArrayList<Switch> switches;
+    String[] valid_days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

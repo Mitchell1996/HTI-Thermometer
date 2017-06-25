@@ -1,6 +1,7 @@
 package nl.tue.demothermostat;
 
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,6 +25,8 @@ import org.thermostatapp.util.InvalidInputValueException;
 import java.math.RoundingMode;
 import java.net.ConnectException;
 import java.text.DecimalFormat;
+
+
 
 public class ThermostatActivity extends Activity {
 
@@ -81,7 +84,7 @@ public class ThermostatActivity extends Activity {
                     currentTemp.post(new Runnable() {
                         @Override
                         public void run() {
-                            currentTemp.setText(String.valueOf(temp_current));
+                            currentTemp.setText("Current Temperature: " + temp_current + "C");
                             if (!firstPull) {
                                 targetTemp.setText(String.valueOf(temp_target) + " \u2103");
                                 int n = (int) temp_target - 5;
