@@ -7,7 +7,7 @@
         android:icon="@drawable/ic_thermostat"/>
     <item android:title="Week Overview"
         android:id="@+id/WeekOverview"
-        android:icon="@drawable/ic_weekOverview"/>
+        android:icon="@drawable/ic_week_overview"/>
     <item android:title="Test"
         android:id="@+id/Test"
         android:icon="@drawable/ic_action_name"/>
